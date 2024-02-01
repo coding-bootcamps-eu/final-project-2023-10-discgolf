@@ -1,14 +1,21 @@
 <template>
-  <div>
+  <div class="map-container">
     <div id="map"></div>
-    <button @click="locateUser">Meinen Standort finden</button>
+    <button class="btn btn-locate" @click="locateUser">
+      <img class="imgage-locate" src="../assets/locate.svg" alt="" />
+    </button>
+    <button class="btn btn-basket" @click="locateBasket">
+      <img class="imgage-locate" src="../assets/basket-btn.svg" alt="" />
+    </button>
   </div>
 </template>
 
 <script>
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-
+import "/dist/css/leaflet.css";
+import abwurf from "@/assets/abwurf.png";
+import basket from "@/assets/basket.png";
+import standort from "@/assets/circle.png";
 export default {
   data() {
     return {
@@ -20,12 +27,15 @@ export default {
   },
   methods: {
     initializeMap() {
-      this.map = L.map("map").setView([52.24828145, 10.52451875], 17.5);
+      this.map = L.map("map").setView([52.2504933, 10.5241629], 17.5);
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(this.map);
+    },
+    locateBasket() {
+      this.map.panTo(this.startMarker.getLatLng());
     },
     locateUser() {
       if (navigator.geolocation) {
@@ -38,25 +48,13 @@ export default {
             this.map.panTo(userLocation);
 
             // Aktualisiere die Größe des Benutzermarkers basierend auf dem Zoom-Level
-            this.map.on("zoomend", () => {
-              const currentZoom = this.map.getZoom();
-              const newIconSize = [
-                40 / 2 ** (17.5 - currentZoom),
-                40 / 2 ** (17.5 - currentZoom),
-              ];
-              const newIcon = new L.Icon({
-                iconUrl: "@/assets/diskgolf2_1.png",
-                iconSize: newIconSize,
-              });
-              this.userMarker.setIcon(newIcon);
-            });
 
             // Füge den Benutzermarker hinzu
             if (this.userMarker) {
               this.map.removeLayer(this.userMarker);
             }
             this.userMarker = L.marker(userLocation, {
-              icon: new L.Icon({ iconUrl: "person.png", iconSize: [40, 40] }),
+              icon: new L.Icon({ iconUrl: standort, iconSize: [40, 40] }),
             })
               .addTo(this.map)
               .bindPopup("Dein Standort")
@@ -83,27 +81,59 @@ export default {
     this.initializeMap();
 
     // Start- und Endpunkte setzen
-    const starter = [52.25072, 10.523546];
-    const ender = [52.2502666, 10.5247798];
+    this.starter = [52.25072, 10.523546];
+    this.ender = [52.2502666, 10.5247798];
 
-    this.startMarker = L.marker(starter, {
+    this.startMarker = L.marker(this.starter, {
       icon: new L.Icon({
-        iconUrl: "@/assets/diskgolf2_1.png",
+        iconUrl: abwurf,
         iconSize: [40, 40],
       }),
     }).addTo(this.map);
-    this.endMarker = L.marker(ender, {
+    this.endMarker = L.marker(this.ender, {
       icon: new L.Icon({
-        iconUrl: "@/assets/diskgolf2_1.png",
+        iconUrl: basket,
         iconSize: [40, 40],
       }),
     }).addTo(this.map);
+
+    if (this.startMarker) {
+      L.polyline([this.endMarker.getLatLng(), this.startMarker.getLatLng()], {
+        color: "blue",
+      }).addTo(this.map);
+    }
   },
 };
 </script>
 
-<style>
+<style scoped>
+.map-container {
+  position: relative;
+}
 #map {
   height: 400px;
+  z-index: 0;
+}
+.btn {
+  border: none;
+  padding: 0;
+  z-index: 60;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+}
+.btn-locate {
+  left: 10px;
+  top: 90px;
+}
+
+.btn-basket {
+  left: 10px;
+  top: 130px;
+}
+
+.imgage-locate {
+  width: 35px;
+  height: 35px;
 }
 </style>
