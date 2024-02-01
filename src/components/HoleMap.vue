@@ -2,10 +2,24 @@
   <div class="map-container">
     <div id="map"></div>
     <button class="btn btn-locate" @click="locateUser">
-      <img class="imgage-locate" src="../assets/locate.svg" alt="" />
+      <img
+        @mouseenter="hover_locate = true"
+        @mouseleave="hover_locate = false"
+        class="imgage-locate"
+        :class="{ 'locate-hover': hover_locate }"
+        src="../assets/locate.svg"
+        alt=""
+      />
     </button>
     <button class="btn btn-basket" @click="locateBasket">
-      <img class="imgage-locate" src="../assets/basket-btn.svg" alt="" />
+      <img
+        @mouseenter="hover_basket = true"
+        @mouseleave="hover_basket = false"
+        class="imgage-locate"
+        :class="{ 'locate-hover': hover_basket }"
+        src="../assets/basket-btn.svg"
+        alt=""
+      />
     </button>
   </div>
 </template>
@@ -23,6 +37,8 @@ export default {
       startMarker: null,
       endMarker: null,
       userMarker: null,
+      hover_basket: false,
+      hover_locate: false,
     };
   },
   methods: {
@@ -135,5 +151,10 @@ export default {
 .imgage-locate {
   width: 35px;
   height: 35px;
+  transition: 0.4s;
+}
+.locate-hover {
+  width: 40px;
+  height: 40px;
 }
 </style>
