@@ -6,10 +6,14 @@
         <ul>
           <li v-for="(course, index) in player.redCourses" :key="index">
             {{ course.title }} - Par {{ course.par }}
-            <input type="number" v-model="player.throws[index]" min="0" />
+            <input
+              type="number"
+              v-model="player.throws[index]"
+              min="0"
+              @input="updateScore(player)"
+            />
           </li>
         </ul>
-        <button @click="submitThrows(playerIndex)">Submit Throws</button>
         <p>Total</p>
         <p>Par: {{ player.totalPar }}</p>
         <p>Score: {{ player.totalScore }}</p>
@@ -60,20 +64,6 @@ export default {
     });
   },
   methods: {
-    submitThrows(playerIndex) {
-      const player = this.players[playerIndex];
-
-      // Test
-      this.calculateTotalPar(player);
-      this.calculateTotalScore(player);
-
-      // localStorage ( Save Throws )
-      localStorage.setItem(
-        `player${playerIndex}Throws`,
-        JSON.stringify(player.throws)
-      );
-    },
-
     calculateTotalPar(player) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
       player.totalPar = throwsAsNumbers.reduce((total, currentThrow, index) => {
@@ -85,6 +75,16 @@ export default {
       player.totalScore = throwsAsNumbers.reduce((total, currentThrow) => {
         return total + currentThrow;
       }, 0);
+    },
+    updateScore(player) {
+      this.calculateTotalPar(player);
+      this.calculateTotalScore(player);
+
+      // localStorage ( Save Throws )
+      localStorage.setItem(
+        `player${this.players.indexOf(player)}Throws`,
+        JSON.stringify(player.throws)
+      );
     },
   },
 };
