@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { API_URL } from "../main.js";
+
 export default {
   data() {
     return {
@@ -40,7 +42,7 @@ export default {
       }
     },
     fetchMaps() {
-      fetch("http://localhost:3000/tracks")
+      fetch(`${API_URL}/tracks`)
         .then((response) => response.json())
         .then((data) => {
           this.maps = data;

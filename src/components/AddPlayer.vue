@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { API_URL } from "../main.js";
+
 export default {
   data() {
     return {
@@ -33,7 +35,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await fetch("http://localhost:3000/users");
+        const response = await fetch(`${API_URL}/users`);
         const jsonData = await response.json();
 
         this.data = jsonData.map((user) => ({ id: user.id, name: user.name }));
@@ -44,7 +46,7 @@ export default {
     async addUser() {
       if (this.data.length <= 6) {
         try {
-          const response = await fetch("http://localhost:3000/users", {
+          const response = await fetch(`${API_URL}/users`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -75,7 +77,7 @@ export default {
     async removeUser(userId) {
       this.data = this.data.filter((user) => user.id !== userId);
       try {
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        const response = await fetch(`${API_URL}/users/${userId}`, {
           method: "DELETE",
         });
 
