@@ -1,36 +1,65 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-
-import PlayerScores from "../views/PlayerScores.vue";
-
-import MapSelection from "../components/MapSelection.vue";
-
+import StartBildschirm from "../views/StartBildschirm.vue";
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: StartBildschirm,
   },
   {
-    path: "/about",
-    name: "about",
+    path: "/course",
+    name: "course",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+      import(/* webpackChunkName: "course" */ "../views/AuswahlCourse.vue"),
   },
   {
-
+    path: "/nav",
+    name: "nav",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "nav" */ "../views/NavigationScreen.vue"),
+  },
+  {
+    path: "/spieler",
+    name: "spieler",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "spieler" */ "../views/SpielerWahl.vue"),
+  },
+  {
     path: "/scores",
     name: "scores",
-    component: PlayerScores,},
-
-  { path: "/map-selection",
-    name: "map-selection",
-    component: MapSelection,
-
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "scores" */ "../views/SpielStand.vue"),
+  },
+  {
+    path: "/ansicht",
+    name: "ansicht",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "ansicht" */ "../views/GesamtAnsicht.vue"),
+  },
+  {
+    path: "/regeln",
+    name: "regeln",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "ansicht" */ "../views/SpielRegeln.vue"),
   },
 ];
 
