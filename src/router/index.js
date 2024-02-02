@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+
 import PlayerScores from "../views/PlayerScores.vue";
+
+import MapSelection from "../components/MapSelection.vue";
+
 
 const routes = [
   {
@@ -18,9 +22,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   {
+
     path: "/scores",
     name: "scores",
-    component: PlayerScores,
+    component: PlayerScores,},
+
+  { path: "/map-selection",
+    name: "map-selection",
+    component: MapSelection,
+
   },
 ];
 
