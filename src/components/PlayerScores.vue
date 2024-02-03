@@ -1,14 +1,18 @@
 <template>
   <div>
-    <!-- Schleife durch alle Spieler -->
+    <div v-for="(korb, index) in bahnen" :key="korb">
+      <div v-if="index + 1 === bahn">
+        <h1>{{ bahnen[index].title }}</h1>
+        <p>{{ `Par: ${bahnen[index].par}` }}</p>
+        <p>{{ `Länge: ${bahnen[index].length} Meter` }}</p>
+      </div>
+    </div>
     <div v-for="(player, playerIndex) in players" :key="playerIndex">
       <h2>{{ player.name }}'s Würfe:</h2>
       <div v-if="player.redCourses.length > 0">
         <!-- Schleife durch alle roten Kurse des Spielers -->
         <div v-for="(course, index) in player.redCourses" :key="index">
           <div v-if="index + 1 === bahn">
-            {{ course.title }} - Par {{ course.par }}
-
             <!-- Buttons zum Erhöhen und Verringern der Würfe -->
             <button @click="increaseThrow(playerIndex, index)">+</button>
             <!-- Eingabefeld für die Anzahl der Würfe -->
@@ -133,6 +137,7 @@ export default {
     },
     selectBahn(selectedBahn) {
       this.bahn = selectedBahn;
+
       // Führe weitere Aktualisierungen oder Berechnungen hier durch, falls erforderlich
     },
   },
