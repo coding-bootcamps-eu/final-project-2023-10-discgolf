@@ -19,10 +19,20 @@
         <div v-for="(course, index) in player.selectedCourse" :key="index">
           <div v-if="index + 1 === bahn">
             <!-- Buttons zum Erhöhen und Verringern der Würfe -->
-            <button class="plus-minus-button" @click="increaseThrow(playerIndex, index)">+</button>
+            <button
+              class="plus-minus-button"
+              @click="increaseThrow(playerIndex, index)"
+            >
+              +
+            </button>
             <!-- Eingabefeld für die Anzahl der Würfe -->
             <p>{{ player.throws[index] }}</p>
-            <button class="plus-minus-button" @click="reduceThrow(playerIndex, index)">-</button>
+            <button
+              class="plus-minus-button"
+              @click="reduceThrow(playerIndex, index)"
+            >
+              -
+            </button>
           </div>
         </div>
         <p>Total</p>
