@@ -7,12 +7,48 @@
     <div class="back-btn"></div>
     <div class="weather"></div>
     <div class="buttons">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/01Vector.png" /><br /><img
+            src="../assets/navicons/01Label.png"
+            class="label"
+          /></div
+      ></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/02Vector.png" /><br /><img
+            src="../assets/navicons/02Label.png"
+            class="label"
+          /></div
+      ></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/03Vector.png" /><br /><img
+            src="../assets/navicons/03Label.png"
+            class="label"
+          /></div
+      ></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/04Vector.png" /><br /><img
+            src="../assets/navicons/04Label.png"
+            class="label"
+          /></div
+      ></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/05Vector.png" /><br /><img
+            src="../assets/navicons/05Label.png"
+            class="label"
+          /></div
+      ></span>
+      <span
+        ><div class="icon">
+          <img alt="Karte" src="../assets/navicons/06Vector.png" /><br /><img
+            src="../assets/navicons/06Label.png"
+            class="label"
+          /></div
+      ></span>
     </div>
     <div class="balken-bottom"></div>
   </div>
@@ -56,6 +92,16 @@ h1 {
   background-color: var(--dunkelgruen);
   border: 1px solid var(--dunkelgruen);
   border-radius: 8px;
+}
+.icon {
+  padding-top: 7px;
+  position: relative;
+}
+.icon .label {
+  position: absolute;
+  top: 65px;
+  margin: 0 auto;
+  left: 30%;
 }
 .balken-bottom {
   background-color: var(--dunkelgruen);
