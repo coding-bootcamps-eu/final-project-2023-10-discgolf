@@ -1,6 +1,7 @@
 <template>
+  <div class="balken"></div>
   <div class="about">
-    <h1>This is an SpielerWahl page</h1>
+    <h1>Fügen Sie die Namen der Spieler ein:</h1>
     <AddPlayer />
   </div>
 </template>
@@ -14,3 +15,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.about {
+  background-color: var(--hellgruen);
+}
+h1 {
+  margin: 0px;
+}
+</style>

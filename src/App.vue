@@ -14,12 +14,21 @@
 </template>
 
 <style>
+:root {
+  --hellgruen: #afdacc;
+  --dunkelgruen: #3b7c7d;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 852px;
+  width: 393px;
+  margin-top: 50px;
+  margin: auto;
+  border: 1px solid red;
 }
 
 nav {
@@ -33,5 +42,11 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.balken {
+  background-color: var(--dunkelgruen);
+  width: 393px;
+  height: 44px;
 }
 </style>
