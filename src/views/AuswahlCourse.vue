@@ -1,7 +1,8 @@
 <template>
   <div class="balken"></div>
   <div class="about">
-    <h1>This is an AuswahlCourse page</h1>
+    <img alt="Vue logo" src="../assets/logo_discgolf_klein.png" />
+    <h1>Füllen Sie Spielstätten- und Layout-Daten aus</h1>
     <MapSelection />
   </div>
 </template>
@@ -27,5 +28,12 @@ export default {
 }
 h1 {
   margin: 0px;
+}
+
+h1 {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 32px;
+  color: var(--hellgruen);
 }
 </style>
