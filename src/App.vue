@@ -9,7 +9,9 @@
       <router-link to="/ansicht">Kartenansicht</router-link> |
       <router-link to="/regeln">Regeln</router-link> |
     </nav>
-    <router-view />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -24,11 +26,15 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 852px;
-  width: 393px;
   margin-top: 50px;
   margin: auto;
+}
+
+main {
+  height: 852px;
+  width: 393px;
   border: 1px solid red;
+  margin: auto;
 }
 
 nav {
