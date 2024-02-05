@@ -16,8 +16,18 @@
               @input="updateScore(player)"
             />
             <!-- Buttons zum Erhöhen und Verringern der Würfe -->
-            <button @click="increaseThrow(playerIndex, index)">+</button>
-            <button @click="reduceThrow(playerIndex, index)">-</button>
+            <button
+              class="plus-minus-button"
+              @click="increaseThrow(playerIndex, index)"
+            >
+              +
+            </button>
+            <button
+              class="plus-minus-button"
+              @click="reduceThrow(playerIndex, index)"
+            >
+              -
+            </button>
           </li>
         </ul>
         <p>Total</p>

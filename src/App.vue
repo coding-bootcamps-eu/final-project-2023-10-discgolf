@@ -64,8 +64,28 @@ nav a.router-link-exact-active {
   color: var(--hellgruen);
   border-radius: 15px;
 }
+.button-ganz-hell {
+  background-color: var(--hellgruen);
+  border-color: var(--dunkelgruen);
+  border: 1px solid;
+  border-radius: 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  color: var(--dunkelgruen);
+}
 
 * {
   box-sizing: border-box;
+}
+
+.plus-minus-button {
+  background-color: var(--hellgruen);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-weight: bolder;
+  color: var(--dunkelgruen);
+  border-radius: 100%;
 }
 </style>
