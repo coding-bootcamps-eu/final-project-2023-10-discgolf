@@ -32,9 +32,9 @@
       </li>
     </ul>
     <!-- Schaltfläche zum Löschen ausgewählter Spieler -->
-    <button @click="removeSelectedUsers">Löschen</button>
+    <button class="button-ganz-hell" @click="removeSelectedUsers">Löschen</button>
     <!-- Schaltfläche zum Bestätigen der Spieler -->
-    <button @click="confirmPlayers">Hinzufügen</button>
+    <button class="button-hell" @click="confirmPlayers">Hinzufügen</button>
   </div>
 </template>
 

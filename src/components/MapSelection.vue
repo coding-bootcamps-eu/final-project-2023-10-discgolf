@@ -20,9 +20,8 @@
         {{ course }}
       </option>
     </select>
-
     <!-- Bestätigungstaste -->
-    <button @click="saveSelection">Bestätigen</button>
+    <button class="button-hell" @click="saveSelection">Bestätigen</button>
   </div>
 </template>
 

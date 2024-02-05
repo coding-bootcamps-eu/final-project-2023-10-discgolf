@@ -9,7 +9,9 @@
       <router-link to="/ansicht">Kartenansicht</router-link> |
       <router-link to="/regeln">Regeln</router-link> |
     </nav>
-    <router-view />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
@@ -24,11 +26,15 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 852px;
-  width: 393px;
   margin-top: 50px;
   margin: auto;
+}
+
+main {
+  height: 852px;
+  width: 393px;
   border: 1px solid red;
+  margin: auto;
 }
 
 nav {
@@ -48,5 +54,38 @@ nav a.router-link-exact-active {
   background-color: var(--dunkelgruen);
   width: 393px;
   height: 44px;
+}
+
+.button-hell {
+  background-color: var(--dunkelgruen);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  color: var(--hellgruen);
+  border-radius: 15px;
+}
+.button-ganz-hell {
+  background-color: var(--hellgruen);
+  border-color: var(--dunkelgruen);
+  border: 1px solid;
+  border-radius: 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  color: var(--dunkelgruen);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.plus-minus-button {
+  background-color: var(--hellgruen);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-weight: bolder;
+  color: var(--dunkelgruen);
+  border-radius: 100%;
 }
 </style>
