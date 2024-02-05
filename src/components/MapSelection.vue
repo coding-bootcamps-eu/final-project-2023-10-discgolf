@@ -1,22 +1,28 @@
 <template>
+  <!-- Auswahl der Spielstätte und des Layouts -->
   <div>
     <label for="map">Spielstätte:</label>
+    <!-- Dropdown-Menü für die Auswahl der Spielstätte -->
     <select v-model="selectedMap" @change="fetchCourses">
       <option disabled value="">Wählen Sie eine Spielstätte aus:</option>
+      <!-- Iteration über verfügbare Spielstätten -->
       <option v-for="map in maps" :key="map.id" :value="map.id">
         {{ map.mapTitle }}
       </option>
     </select>
 
     <label for="course">Layout:</label>
+    <!-- Dropdown-Menü für die Auswahl des Layouts -->
     <select v-model="selectedCourse">
       <option disabled value="">Wählen Sie das Layout aus:</option>
+      <!-- Iteration über verfügbare Layouts -->
       <option v-for="course in courses" :key="course" :value="course">
         {{ course }}
       </option>
     </select>
 
-    <button>Bestätigen</button>
+    <!-- Bestätigungstaste -->
+    <button @click="saveSelection">Bestätigen</button>
   </div>
 </template>
 
@@ -28,11 +34,12 @@ export default {
     return {
       selectedMap: null,
       selectedCourse: null,
-      maps: [],
-      courses: [],
+      maps: [], // Liste der verfügbaren Spielstätten
+      courses: [], // Liste der verfügbaren Layouts
     };
   },
   methods: {
+    // Abrufen der verfügbaren Layouts basierend auf der ausgewählten Spielstätte
     fetchCourses() {
       const selectedMapObj = this.maps.find(
         (map) => map.id === this.selectedMap
@@ -41,16 +48,40 @@ export default {
         this.courses = Object.keys(selectedMapObj.courses);
       }
     },
+    // Abrufen der verfügbaren Spielstätten
     fetchMaps() {
       fetch(`${API_URL}/tracks`)
         .then((response) => response.json())
         .then((data) => {
           this.maps = data;
+          // Auswahl aus dem lokalen Speicher wiederherstellen, wenn die Komponente eingebunden wird
+          this.retrieveSelection();
         });
+    },
+    // Auswahl speichern
+    saveSelection() {
+      localStorage.setItem("selectedMap", this.selectedMap);
+      localStorage.setItem("selectedCourse", this.selectedCourse);
+    },
+    // Auswahl aus dem lokalen Speicher abrufen
+    retrieveSelection() {
+      this.selectedMap = localStorage.getItem("selectedMap");
+      this.selectedCourse = localStorage.getItem("selectedCourse");
+      // Layouts für die ausgewählte Spielstätte abrufen
+      this.fetchCourses();
     },
   },
   mounted() {
+    // Beim Laden der Komponente Spielstätten abrufen
     this.fetchMaps();
+  },
+  watch: {
+    // Änderungen in der ausgewählten Spielstätte beobachten und die zugehörigen Layouts abrufen
+    selectedMap: function (newMap) {
+      if (newMap) {
+        this.fetchCourses();
+      }
+    },
   },
 };
 </script>
