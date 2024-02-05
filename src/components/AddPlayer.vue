@@ -2,18 +2,19 @@
   <div>
     <h1>add Players</h1>
     <ul>
+      <input
+        v-model="newUser"
+        @keyup.enter="keySubmit"
+        placeholder="Enter name"
+      />
       <li v-for="(user, index) in data" :key="user.id">
         Player {{ index + 1 }}: {{ user.name }}
         <span @click="removeUser(user.id)"> [X]</span>
       </li>
     </ul>
     <h3>Add User</h3>
-    <input
-      v-model="newUser"
-      @keyup.enter="keySubmit"
-      placeholder="Enter name"
-    />
-    <button @click="addUser" :disabled="btnDisabled">Add User</button>
+    <button>Löschen</button>
+    <button @click="addUser" :disabled="btnDisabled">Hinzufügen</button>
   </div>
 </template>
 
