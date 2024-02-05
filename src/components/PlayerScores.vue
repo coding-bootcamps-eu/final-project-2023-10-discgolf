@@ -12,7 +12,7 @@
         <p>{{ `Länge: ${bahnen[index].length} Meter` }}</p>
       </div>
     </div>
-    <div v-for="(player, playerIndex) in players" :key="playerIndex">
+    <div v-for="(player, playerIndex) in activePlayers" :key="playerIndex">
       <h2>{{ player.name }}'s Würfe:</h2>
       <div v-if="player.selectedCourse && player.selectedCourse.length > 0">
         <!-- Schleife durch alle Kurse des Spielers -->
@@ -62,6 +62,7 @@ export default {
       // Benutzerdaten verarbeiten und Spielerliste initialisieren
       this.players = users.map((user) => ({
         name: user.name,
+        active: user.active, // "active" Eigenschaft aus der API hinzufügen
         selectedCourse: "", // Ausgewählter Kurs initialisieren
         throws: [],
         totalPar: 0,
@@ -102,6 +103,13 @@ export default {
     this.loadTrack();
   },
 
+  // Spieler nach "active"-Eigenschaft filtern, um nur die aktiven Spieler anzuzeigen.
+  computed: {
+    activePlayers() {
+      return this.players.filter((player) => player.active === true);
+    },
+  },
+
   methods: {
     // Kursdaten abrufen
     async loadTrack() {
@@ -110,6 +118,7 @@ export default {
 
       this.bahnen = data[0].courses[this.selectedCourse]; // Rote Kurse für den Spieler
     },
+
     // Gesamtpar eines Spielers berechnen
     calculateTotalPar(player, selectedCourseData) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
@@ -117,6 +126,7 @@ export default {
         return total + currentThrow - selectedCourseData[index].par;
       }, 0);
     },
+
     // Gesamtpunkte eines Spielers berechnen
     calculateTotalScore(player) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
@@ -124,6 +134,7 @@ export default {
         return total + currentThrow;
       }, 0);
     },
+
     // Spielerpunkte aktualisieren
     updateScore(player, selectedCourseData) {
       this.calculateTotalPar(player, selectedCourseData);
@@ -135,18 +146,23 @@ export default {
         JSON.stringify(player.throws)
       );
     },
+
     // Methode zum Erhöhen der Anzahl von Würfen
     increaseThrow(playerIndex, throwIndex) {
+      const selectedCourseData = this.bahnen; // Assuming this contains the necessary data
       this.players[playerIndex].throws[throwIndex]++;
-      this.updateScore(this.players[playerIndex]);
+      this.updateScore(this.players[playerIndex], selectedCourseData);
     },
+
     // Methode zum Verringern der Anzahl von Würfen
     reduceThrow(playerIndex, throwIndex) {
+      const selectedCourseData = this.bahnen; // Assuming this contains the necessary data
       if (this.players[playerIndex].throws[throwIndex] > 0) {
         this.players[playerIndex].throws[throwIndex]--;
-        this.updateScore(this.players[playerIndex]);
+        this.updateScore(this.players[playerIndex], selectedCourseData);
       }
     },
+
     selectBahn(selectedBahn) {
       this.bahn = selectedBahn;
 
