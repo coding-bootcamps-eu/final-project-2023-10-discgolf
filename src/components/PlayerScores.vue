@@ -12,11 +12,11 @@
         <p>{{ `Länge: ${bahnen[index].length} Meter` }}</p>
       </div>
     </div>
-    <div v-for="(player, playerIndex) in players" :key="playerIndex">
+    <div v-for="(player, playerIndex) in activePlayers" :key="playerIndex">
       <h2>{{ player.name }}'s Würfe:</h2>
-      <div v-if="player.redCourses.length > 0">
-        <!-- Schleife durch alle roten Kurse des Spielers -->
-        <div v-for="(course, index) in player.redCourses" :key="index">
+      <div v-if="player.selectedCourse && player.selectedCourse.length > 0">
+        <!-- Schleife durch alle Kurse des Spielers -->
+        <div v-for="(course, index) in player.selectedCourse" :key="index">
           <div v-if="index + 1 === bahn">
             <!-- Buttons zum Erhöhen und Verringern der Würfe -->
             <button class="plus-minus-button" @click="increaseThrow(playerIndex, index)">+</button>
@@ -39,6 +39,7 @@
 <script>
 import { API_URL } from "../main.js";
 import HoleMap from "./HoleMap.vue";
+
 export default {
   components: {
     HoleMap,
@@ -48,6 +49,7 @@ export default {
       players: [], // Spielerliste
       bahn: 1,
       bahnen: [],
+      selectedCourse: "", // Ausgewählter Kurs initialisieren
     };
   },
 
@@ -59,11 +61,14 @@ export default {
       // Benutzerdaten verarbeiten und Spielerliste initialisieren
       this.players = users.map((user) => ({
         name: user.name,
-        redCourses: [],
+        active: user.active, // "active" Eigenschaft aus der API hinzufügen
+        selectedCourse: "", // Ausgewählter Kurs initialisieren
         throws: [],
         totalPar: 0,
         totalScore: 0,
       }));
+      // Laden des ausgewählten Kurses aus dem LocalStorage
+      this.selectedCourse = localStorage.getItem("selectedCourse");
       // Kursdaten abrufen und Würfe für jeden Spieler initialisieren
       for (
         let playerIndex = 0;
@@ -77,18 +82,18 @@ export default {
         // Kursdaten abrufen
         const tracksResponse = await fetch(`${API_URL}/tracks`);
         const data = await tracksResponse.json();
-        console.log("Daten abgerufen:", data);
-        player.redCourses = data[0].courses.red; // Rote Kurse für den Spieler
-        console.log(`${player.name}'s Rote Kurse:`, player.redCourses);
-        console.log(`Moin ${this.course}`);
+        // Gespeicherten Kurs für den Spieler setzen
+        player.selectedCourse = this.selectedCourse;
         // Gespeicherte Würfe verwenden oder mit Standardwerten initialisieren
         if (!savedThrows) {
-          player.throws = new Array(player.redCourses.length).fill(0);
+          player.throws = new Array(
+            data[0].courses[player.selectedCourse].length
+          ).fill(0);
         } else {
           player.throws = savedThrows;
         }
         // Gesamtpar und Gesamtpunkte berechnen
-        this.calculateTotalPar(player);
+        this.calculateTotalPar(player, data[0].courses[player.selectedCourse]);
         this.calculateTotalScore(player);
       }
     } catch (error) {
@@ -97,21 +102,30 @@ export default {
     this.loadTrack();
   },
 
+  // Spieler nach "active"-Eigenschaft filtern, um nur die aktiven Spieler anzuzeigen.
+  computed: {
+    activePlayers() {
+      return this.players.filter((player) => player.active === true);
+    },
+  },
+
   methods: {
     // Kursdaten abrufen
     async loadTrack() {
       const tracksResponse = await fetch(`${API_URL}/tracks`);
       const data = await tracksResponse.json();
 
-      this.bahnen = data[0].courses.blue; // Rote Kurse für den Spieler
+      this.bahnen = data[0].courses[this.selectedCourse]; // Rote Kurse für den Spieler
     },
+
     // Gesamtpar eines Spielers berechnen
-    calculateTotalPar(player) {
+    calculateTotalPar(player, selectedCourseData) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
       player.totalPar = throwsAsNumbers.reduce((total, currentThrow, index) => {
-        return total + currentThrow - player.redCourses[index].par;
+        return total + currentThrow - selectedCourseData[index].par;
       }, 0);
     },
+
     // Gesamtpunkte eines Spielers berechnen
     calculateTotalScore(player) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
@@ -119,9 +133,10 @@ export default {
         return total + currentThrow;
       }, 0);
     },
+
     // Spielerpunkte aktualisieren
-    updateScore(player) {
-      this.calculateTotalPar(player);
+    updateScore(player, selectedCourseData) {
+      this.calculateTotalPar(player, selectedCourseData);
       this.calculateTotalScore(player);
 
       // Würfe im lokalen Speicher speichern
@@ -130,18 +145,23 @@ export default {
         JSON.stringify(player.throws)
       );
     },
+
     // Methode zum Erhöhen der Anzahl von Würfen
     increaseThrow(playerIndex, throwIndex) {
+      const selectedCourseData = this.bahnen; // Assuming this contains the necessary data
       this.players[playerIndex].throws[throwIndex]++;
-      this.updateScore(this.players[playerIndex]);
+      this.updateScore(this.players[playerIndex], selectedCourseData);
     },
+
     // Methode zum Verringern der Anzahl von Würfen
     reduceThrow(playerIndex, throwIndex) {
+      const selectedCourseData = this.bahnen; // Assuming this contains the necessary data
       if (this.players[playerIndex].throws[throwIndex] > 0) {
         this.players[playerIndex].throws[throwIndex]--;
-        this.updateScore(this.players[playerIndex]);
+        this.updateScore(this.players[playerIndex], selectedCourseData);
       }
     },
+
     selectBahn(selectedBahn) {
       this.bahn = selectedBahn;
 

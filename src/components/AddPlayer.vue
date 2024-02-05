@@ -31,10 +31,11 @@
         />
       </li>
     </ul>
-    <!-- Schaltfläche zum Löschen ausgewählter Spieler -->
+
     <button class="button-ganz-hell" @click="removeSelectedUsers">Löschen</button>
     <!-- Schaltfläche zum Bestätigen der Spieler -->
     <button class="button-hell" @click="confirmPlayers">Hinzufügen</button>
+
   </div>
 </template>
 
