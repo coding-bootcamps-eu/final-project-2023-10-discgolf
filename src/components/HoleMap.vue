@@ -11,7 +11,7 @@
         alt=""
       />
     </button>
-    <button class="btn btn-basket" @click="locateBasket">
+    <button class="btn btn-basket" :class="AbwurfBtn" @click="locateBasket">
       <img
         @mouseenter="hover_basket = true"
         @mouseleave="hover_basket = false"
@@ -28,8 +28,10 @@
 import L from "leaflet";
 import "/dist/css/leaflet.css";
 import abwurf from "@/assets/abwurf.png";
+import courseBeginn from "@/assets/coursebeginn.png";
 import basket from "@/assets/basket.png";
 import standort from "@/assets/circle.png";
+import frisbee from "@/assets/frisbee.png";
 export default {
   data() {
     return {
@@ -39,12 +41,24 @@ export default {
       userMarker: null,
       hover_basket: false,
       hover_locate: false,
+      markerSize: [40, 40],
     };
   },
-  props: ["view", "anfang", "ende"],
+  props: ["view", "anfang", "ende", "zoom", "scheibeLeihen", "spielort"],
+  computed: {
+    AbwurfBtn() {
+      return this.anfang ? "" : "hidden-btn";
+    },
+  },
   methods: {
     initializeMap() {
-      this.map = L.map("map").setView(this.view, 17.5);
+      this.map = L.map("map", {
+        zoomControl: true,
+        zoom: 1,
+        zoomAnimation: false,
+        fadeAnimation: true,
+        markerZoomAnimation: true,
+      }).setView(this.view, this.zoom);
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
@@ -52,7 +66,9 @@ export default {
       }).addTo(this.map);
     },
     locateBasket() {
-      this.map.panTo(this.startMarker.getLatLng());
+      if (this.anfang || this.spielort) {
+        this.map.panTo(this.startMarker.getLatLng());
+      }
     },
     locateUser() {
       if (navigator.geolocation) {
@@ -63,8 +79,6 @@ export default {
               position.coords.longitude
             );
             this.map.panTo(userLocation);
-
-            // Aktualisiere die Größe des Benutzermarkers basierend auf dem Zoom-Level
 
             // Füge den Benutzermarker hinzu
             if (this.userMarker) {
@@ -98,24 +112,44 @@ export default {
     this.initializeMap();
 
     // Start- und Endpunkte setzen
+    if (this.anfang && this.ende) {
+      this.startMarker = L.marker(this.anfang, {
+        icon: new L.Icon({
+          iconUrl: abwurf,
+          iconSize: [40, 40],
+        }),
+      }).addTo(this.map);
+      this.endMarker = L.marker(this.ende, {
+        icon: new L.Icon({
+          iconUrl: basket,
+          iconSize: [40, 40],
+        }),
+      }).addTo(this.map);
+    }
 
-    this.startMarker = L.marker(this.anfang, {
-      icon: new L.Icon({
-        iconUrl: abwurf,
-        iconSize: [40, 40],
-      }),
-    }).addTo(this.map);
-    this.endMarker = L.marker(this.ende, {
-      icon: new L.Icon({
-        iconUrl: basket,
-        iconSize: [40, 40],
-      }),
-    }).addTo(this.map);
-
-    if (this.startMarker) {
+    if (this.anfang && this.ende) {
       L.polyline([this.endMarker.getLatLng(), this.startMarker.getLatLng()], {
         color: "blue",
       }).addTo(this.map);
+    }
+
+    if (this.spielort && this.scheibeLeihen) {
+      this.startMarker = L.marker(this.spielort, {
+        icon: new L.Icon({
+          iconUrl: courseBeginn,
+          iconSize: [40, 40],
+        }),
+      })
+        .bindPopup("Anfang des Kurses")
+        .addTo(this.map);
+      this.endMarker = L.marker(this.scheibeLeihen, {
+        icon: new L.Icon({
+          iconUrl: frisbee,
+          iconSize: [40, 40],
+        }),
+      })
+        .bindPopup("Hier kannst du dir Scheiben ausleihen")
+        .addTo(this.map);
     }
   },
 };
@@ -155,5 +189,8 @@ export default {
 .locate-hover {
   width: 40px;
   height: 40px;
+}
+.hidden-btn {
+  display: none;
 }
 </style>

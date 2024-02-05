@@ -7,6 +7,7 @@
       :view="currentHoleView"
       :anfang="currentHoleStart"
       :ende="currentHoleEnd"
+      :zoom="17.5"
     />
 
     <h2>
