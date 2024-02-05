@@ -5,55 +5,40 @@
   </div>
   <div class="main">
     <div class="back-btn"></div>
-    <div class="weather"></div>
+    <div><WeatherView /></div>
     <div class="buttons">
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/01Vector.png" /><br /><img
-            src="../assets/navicons/01Label.png"
-            class="label"
-          /></div
-      ></span>
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/02Vector.png" /><br /><img
-            src="../assets/navicons/02Label.png"
-            class="label"
-          /></div
-      ></span>
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/03Vector.png" /><br /><img
-            src="../assets/navicons/03Label.png"
-            class="label"
-          /></div
-      ></span>
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/04Vector.png" /><br /><img
-            src="../assets/navicons/04Label.png"
-            class="label"
-          /></div
-      ></span>
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/05Vector.png" /><br /><img
-            src="../assets/navicons/05Label.png"
-            class="label"
-          /></div
-      ></span>
-      <span
-        ><div class="icon">
-          <img alt="Karte" src="../assets/navicons/06Vector.png" /><br /><img
-            src="../assets/navicons/06Label.png"
-            class="label"
-          /></div
-      ></span>
+      <div><IconKarte /></div>
+      <div><IconSpieler /></div>
+      <div><IconScore /></div>
+      <div><IconStatistik /></div>
+      <div><IconRegeln /></div>
+      <div><IconShop /></div>
     </div>
     <div class="balken-bottom"></div>
   </div>
 </template>
+<script>
+import IconKarte from "@/components/IconKarte.vue";
+import IconRegeln from "@/components/IconRegeln.vue";
+import IconScore from "@/components/IconScore.vue";
+import IconShop from "@/components/IconShop.vue";
+import IconSpieler from "@/components/IconSpieler.vue";
+import IconStatistik from "@/components/IconStatistik.vue";
+import WeatherView from "@/components/WeatherView.vue";
 
+export default {
+  // name: "NavigationScreen",
+  components: {
+    IconKarte,
+    IconRegeln,
+    IconScore,
+    IconShop,
+    IconSpieler,
+    IconStatistik,
+    WeatherView,
+  },
+};
+</script>
 <style scoped>
 .about {
   background-color: var(--hellgruen);
@@ -71,28 +56,22 @@ h1 {
   border-radius: 15px;
   margin: 25px 25px 15px 25px;
 }
-.weather {
-  height: 200px;
-  width: 297px;
-  background-color: var(--dunkelgruen);
-  border-radius: 11px;
-  margin: 90px auto;
-}
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 5px;
+  gap: 10px;
   margin: auto;
   width: 278px;
 }
-.buttons span {
+.buttons div {
   width: 89px;
   height: 89px;
   background-color: var(--dunkelgruen);
   border: 1px solid var(--dunkelgruen);
   border-radius: 8px;
 }
+
 .icon {
   padding-top: 7px;
   position: relative;
