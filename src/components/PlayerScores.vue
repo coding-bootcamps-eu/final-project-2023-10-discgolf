@@ -2,6 +2,11 @@
   <div>
     <div v-for="(korb, index) in bahnen" :key="korb">
       <div v-if="index + 1 === bahn">
+        <HoleMap
+          :view="bahnen[index].coordinates.view"
+          :anfang="bahnen[index].coordinates.start"
+          :ende="bahnen[index].coordinates.end"
+        />
         <h1>{{ bahnen[index].title }}</h1>
         <p>{{ `Par: ${bahnen[index].par}` }}</p>
         <p>{{ `Länge: ${bahnen[index].length} Meter` }}</p>
@@ -34,8 +39,11 @@
 
 <script>
 import { API_URL } from "../main.js";
-
+import HoleMap from "./HoleMap.vue";
 export default {
+  components: {
+    HoleMap,
+  },
   data() {
     return {
       players: [], // Spielerliste
@@ -95,8 +103,8 @@ export default {
     async loadTrack() {
       const tracksResponse = await fetch(`${API_URL}/tracks`);
       const data = await tracksResponse.json();
-      console.log("Daten abgerufen:", data);
-      this.bahnen = data[0].courses.red; // Rote Kurse für den Spieler
+
+      this.bahnen = data[0].courses.blue; // Rote Kurse für den Spieler
     },
     // Gesamtpar eines Spielers berechnen
     calculateTotalPar(player) {
