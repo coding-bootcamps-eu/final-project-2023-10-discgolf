@@ -41,9 +41,10 @@ export default {
       hover_locate: false,
     };
   },
+  props: ["view", "anfang", "ende"],
   methods: {
     initializeMap() {
-      this.map = L.map("map").setView([52.2504933, 10.5241629], 17.5);
+      this.map = L.map("map").setView(this.view, 17.5);
 
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
@@ -97,16 +98,14 @@ export default {
     this.initializeMap();
 
     // Start- und Endpunkte setzen
-    this.starter = [52.25072, 10.523546];
-    this.ender = [52.2502666, 10.5247798];
 
-    this.startMarker = L.marker(this.starter, {
+    this.startMarker = L.marker(this.anfang, {
       icon: new L.Icon({
         iconUrl: abwurf,
         iconSize: [40, 40],
       }),
     }).addTo(this.map);
-    this.endMarker = L.marker(this.ender, {
+    this.endMarker = L.marker(this.ende, {
       icon: new L.Icon({
         iconUrl: basket,
         iconSize: [40, 40],

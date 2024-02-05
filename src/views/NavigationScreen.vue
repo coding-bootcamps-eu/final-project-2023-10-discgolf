@@ -1,7 +1,20 @@
 <template>
   <div class="balken"></div>
   <div class="about">
-    <h1>This is an NavigationScreen page</h1>
+    <h1></h1>
+  </div>
+  <div class="main">
+    <div class="back-btn"></div>
+    <div class="weather"></div>
+    <div class="buttons">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="balken-bottom"></div>
   </div>
 </template>
 
@@ -11,5 +24,44 @@
 }
 h1 {
   margin: 0px;
+}
+.main {
+  position: relative;
+}
+.back-btn {
+  height: 56px;
+  width: 116px;
+  background-color: var(--dunkelgruen);
+  border-radius: 15px;
+  margin: 25px 25px 15px 25px;
+}
+.weather {
+  height: 200px;
+  width: 297px;
+  background-color: var(--dunkelgruen);
+  border-radius: 11px;
+  margin: 90px auto;
+}
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 5px;
+  margin: auto;
+  width: 278px;
+}
+.buttons span {
+  width: 89px;
+  height: 89px;
+  background-color: var(--dunkelgruen);
+  border: 1px solid var(--dunkelgruen);
+  border-radius: 8px;
+}
+.balken-bottom {
+  background-color: var(--dunkelgruen);
+  width: 393px;
+  height: 44px;
+  position: absolute;
+  top: 738px;
 }
 </style>
