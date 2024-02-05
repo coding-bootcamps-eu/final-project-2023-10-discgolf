@@ -55,4 +55,17 @@ nav a.router-link-exact-active {
   width: 393px;
   height: 44px;
 }
+
+.button-hell {
+  background-color: var(--dunkelgruen);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: large;
+  color: var(--hellgruen);
+  border-radius: 15px;
+}
+
+* {
+  box-sizing: border-box;
+}
 </style>

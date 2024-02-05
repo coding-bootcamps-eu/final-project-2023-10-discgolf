@@ -14,7 +14,9 @@
     </ul>
     <h3>Add User</h3>
     <button>Löschen</button>
-    <button @click="addUser" :disabled="btnDisabled">Hinzufügen</button>
+    <button class="button-hell" @click="addUser" :disabled="btnDisabled">
+      Hinzufügen
+    </button>
   </div>
 </template>
 
