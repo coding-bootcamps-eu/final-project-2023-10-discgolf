@@ -4,7 +4,7 @@
     <h1></h1>
   </div>
   <div class="main">
-    <div class="back-btn"></div>
+    <div><BackButton /></div>
     <div>
       <WeatherView
         :city="city"
@@ -22,7 +22,7 @@
       <div><IconRegeln /></div>
       <div><IconShop /></div>
     </div>
-    <div class="balken-bottom"></div>
+    <div class="balken-unten"><BalkenUnten /></div>
   </div>
 </template>
 <script>
@@ -33,6 +33,8 @@ import IconShop from "@/components/IconShop.vue";
 import IconSpieler from "@/components/IconSpieler.vue";
 import IconStatistik from "@/components/IconStatistik.vue";
 import WeatherView from "@/components/WeatherView.vue";
+import BalkenUnten from "@/components/BalkenUnten.vue";
+import BackButton from "@/components/BackButton.vue";
 
 export default {
   // name: "NavigationScreen",
@@ -44,6 +46,8 @@ export default {
     IconSpieler,
     IconStatistik,
     WeatherView,
+    BalkenUnten,
+    BackButton,
   },
   data() {
     return {
@@ -83,13 +87,13 @@ h1 {
 .main {
   position: relative;
 }
-.back-btn {
+/* .back-btn {
   height: 56px;
   width: 116px;
   background-color: var(--dunkelgruen);
   border-radius: 15px;
   margin: 25px 25px 15px 25px;
-}
+} */
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -116,10 +120,7 @@ h1 {
   margin: 0 auto;
   left: 30%;
 }
-.balken-bottom {
-  background-color: var(--dunkelgruen);
-  width: 393px;
-  height: 44px;
+.balken-unten {
   position: absolute;
   top: 738px;
 }
