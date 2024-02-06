@@ -5,7 +5,15 @@
   </div>
   <div class="main">
     <div class="back-btn"></div>
-    <div><WeatherView /></div>
+    <div>
+      <WeatherView
+        :city="city"
+        :temp="`${grad} °C`"
+        :wind="`${wind} Km/h`"
+        :wetter="wetter"
+        :luftdruck="`${luftdruck} %`"
+      />
+    </div>
     <div class="buttons">
       <div><IconKarte /></div>
       <div><IconSpieler /></div>
@@ -36,6 +44,32 @@ export default {
     IconSpieler,
     IconStatistik,
     WeatherView,
+  },
+  data() {
+    return {
+      city: "",
+      grad: "",
+      wind: "",
+      wetter: "",
+      luftdruck: "",
+    };
+  },
+
+  methods: {
+    async loadWeatherData() {
+      const response = await fetch(
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&q=braunschweig&appid=981b2bcca4c56c67d791ae50ab9ba39c&lang=de"
+      );
+      const data = await response.json();
+      this.city = data.name;
+      this.grad = data.main.temp;
+      this.wind = data.wind.speed;
+      this.wetter = data.weather[0].main;
+      this.luftdruck = data.main.humidity;
+    },
+  },
+  created() {
+    this.loadWeatherData();
   },
 };
 </script>
