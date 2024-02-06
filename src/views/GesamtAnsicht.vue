@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
-    <h1>This is an Gesamtansicht page</h1>
-  </div>
+  <router-link to="/nav">
+    <BackButton />
+  </router-link>
   <HoleMap
     :view="[52.25042, 10.52376]"
     :zoom="15"
@@ -11,9 +11,11 @@
 </template>
 <script>
 import HoleMap from "@/components/HoleMap.vue";
+import BackButton from "@/components/BackButton.vue";
 export default {
   components: {
     HoleMap,
+    BackButton,
   },
 };
 </script>
