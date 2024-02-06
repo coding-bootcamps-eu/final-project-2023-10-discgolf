@@ -1,18 +1,25 @@
 <template>
   <div class="balken"></div>
   <div class="about">
-    <h1>This is an Spielregeln page</h1>
+    <h1></h1>
   </div>
+  <div><BackButton /></div>
   <div class="menu">
     <div class="arrow-menu"><ArrowNavigation /></div>
+    <div class="balken-unten"><BalkenUnten /></div>
   </div>
 </template>
 
 <script>
 import ArrowNavigation from "@/components/ArrowNavigation.vue";
+import BalkenUnten from "@/components/BalkenUnten.vue";
+import BackButton from "@/components/BackButton.vue";
+
 export default {
   components: {
     ArrowNavigation,
+    BalkenUnten,
+    BackButton,
   },
 };
 </script>
@@ -32,7 +39,11 @@ h1 {
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  top: 650px;
-  left: 27%;
+  top: 610px;
+  left: 30%;
+}
+.balken-unten {
+  position: absolute;
+  top: 675px;
 }
 </style>
