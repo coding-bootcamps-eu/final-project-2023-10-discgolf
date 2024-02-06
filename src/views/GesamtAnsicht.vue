@@ -28,6 +28,7 @@
       <p>38102 Braunschweig</p>
     </address>
   </div>
+  <BalkenUnten class="position" />
 </template>
 <script>
 import HoleMap from "@/components/HoleMap.vue";
@@ -67,5 +68,9 @@ img {
   position: absolute;
   z-index: 20;
   left: 745px;
+}
+.position {
+  position: absolute;
+  bottom: -80px;
 }
 </style>
