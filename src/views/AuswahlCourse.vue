@@ -25,6 +25,7 @@ export default {
     rgb(27, 54, 61) 83.08%
   );
   background-color: rgba(255, 255, 255, 1);
+  height: 100%;
 }
 h1 {
   margin: 0px;
