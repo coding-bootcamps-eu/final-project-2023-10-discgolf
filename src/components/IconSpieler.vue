@@ -1,10 +1,12 @@
 <template>
-  <div class="icon">
-    <img alt="Spieler" src="../assets/navicons/02Vector.png" /><br /><img
-      src="../assets/navicons/02Label.png"
-      class="label"
-    />
-  </div>
+  <router-link to="/spieler">
+    <div class="icon">
+      <img alt="Spieler" src="../assets/navicons/02Vector.png" /><br /><img
+        src="../assets/navicons/02Label.png"
+        class="label"
+      />
+    </div>
+  </router-link>
 </template>
 
 <script>
