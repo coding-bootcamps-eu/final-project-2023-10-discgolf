@@ -1,10 +1,9 @@
 <template>
   <div class="balken"></div>
-  <div class="about">
-    <h1></h1>
-  </div>
   <div class="main">
-    <div><BackButton /></div>
+    <router-link to="/nav">
+      <div><BackButton /></div
+    ></router-link>
     <h2>Fügen Sie die Namen der Spieler ein:</h2>
     <div><AddPlayer /></div>
     <div class="balken-unten"><BalkenUnten /></div>

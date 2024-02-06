@@ -1,7 +1,8 @@
 <template>
   <div class="about">
-    <h1></h1>
-    <div><BackButton /></div>
+    <router-link to="/nav"
+      ><div><BackButton /></div
+    ></router-link>
     <PlayerScores />
   </div>
 </template>

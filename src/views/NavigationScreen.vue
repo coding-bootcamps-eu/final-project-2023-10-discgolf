@@ -4,7 +4,9 @@
     <h1></h1>
   </div>
   <div class="main">
-    <div><BackButton /></div>
+    <router-link to="/"
+      ><div><BackButton /></div
+    ></router-link>
     <div>
       <WeatherView
         :city="city"
@@ -49,6 +51,7 @@ export default {
     BalkenUnten,
     BackButton,
   },
+
   data() {
     return {
       city: "",

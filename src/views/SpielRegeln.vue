@@ -1,9 +1,8 @@
 <template>
   <div class="balken"></div>
-  <div class="about">
-    <h1></h1>
-  </div>
-  <div><BackButton /></div>
+  <router-link to="/nav">
+    <div><BackButton /></div
+  ></router-link>
   <div class="menu">
     <div class="arrow-menu"><ArrowNavigation /></div>
     <div class="balken-unten"><BalkenUnten /></div>
