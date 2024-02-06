@@ -4,7 +4,7 @@
     <h1></h1>
   </div>
   <div class="main">
-    <router-link to="/"
+    <router-link class="router-link" to="/"
       ><div><BackButton /></div
     ></router-link>
     <div>

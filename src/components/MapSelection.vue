@@ -22,7 +22,10 @@
     </select>
 
     <!-- Bestätigungstaste -->
-    <router-link to="/nav" class="button-hell" @click="saveSelection"
+    <router-link
+      to="/nav"
+      class="button-hell router-link"
+      @click="saveSelection"
       >Bestätigen</router-link
     >
   </div>

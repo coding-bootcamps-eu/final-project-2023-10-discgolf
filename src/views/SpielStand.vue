@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <router-link to="/nav"
+    <router-link class="router-link" to="/nav"
       ><div><BackButton /></div
     ></router-link>
     <PlayerScores />
