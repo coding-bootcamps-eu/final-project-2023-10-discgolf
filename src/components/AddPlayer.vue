@@ -36,7 +36,9 @@
       Löschen
     </button>
     <!-- Schaltfläche zum Bestätigen der Spieler -->
-    <button class="button-hell" @click="confirmPlayers">Hinzufügen</button>
+    <router-link to="/scores" class="button-hell" @click="confirmPlayers"
+      >Hinzufügen</router-link
+    >
   </div>
 </template>
 

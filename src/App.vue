@@ -4,10 +4,6 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/course">Course</router-link> |
       <router-link to="/nav">Navigation</router-link> |
-      <router-link to="/spieler">Spielerwahl</router-link> |
-      <router-link to="/scores">Spielstand</router-link> |
-      <router-link to="/ansicht">Kartenansicht</router-link> |
-      <router-link to="/regeln">Regeln</router-link> |
     </nav>
     <main>
       <router-view />

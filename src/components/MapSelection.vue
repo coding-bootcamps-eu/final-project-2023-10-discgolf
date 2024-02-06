@@ -22,7 +22,9 @@
     </select>
 
     <!-- Bestätigungstaste -->
-    <button class="button-hell" @click="saveSelection">Bestätigen</button>
+    <router-link to="/nav" class="button-hell" @click="saveSelection"
+      >Bestätigen</router-link
+    >
   </div>
 </template>
 
