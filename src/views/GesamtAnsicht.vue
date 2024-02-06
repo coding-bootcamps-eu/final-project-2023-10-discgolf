@@ -1,5 +1,6 @@
 <template>
-  <router-link class="router-link" to="/nav">
+  <BalkenUnten />
+  <router-link class="router-link posi" to="/nav">
     <BackButton />
   </router-link>
   <HoleMap
@@ -31,10 +32,12 @@
 <script>
 import HoleMap from "@/components/HoleMap.vue";
 import BackButton from "@/components/BackButton.vue";
+import BalkenUnten from "@/components/BalkenUnten.vue";
 export default {
   components: {
     HoleMap,
     BackButton,
+    BalkenUnten,
   },
 };
 </script>
@@ -59,5 +62,10 @@ img {
   position: absolute;
   left: 25px;
   top: 50px;
+}
+.posi {
+  position: absolute;
+  z-index: 20;
+  left: 745px;
 }
 </style>
