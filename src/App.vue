@@ -29,7 +29,7 @@
 main {
   height: 852px;
   width: 393px;
-  border: 1px solid red;
+  background-color: var(--hellgruen);
   margin: auto;
 }
 
