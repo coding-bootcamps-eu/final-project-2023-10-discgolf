@@ -11,8 +11,8 @@
     />
 
     <h2>
-      {{ currentHole.title }} - Par {{ currentHole.par }} - Coords Länge -
-      {{ currentHole.length }}m
+      {{ currentHoleIndex + 1 }}. {{ currentHole.title }} - Par
+      {{ currentHole.par }} - Länge - {{ currentHole.length }}m
     </h2>
     <!-- Loop through all players for the current hole -->
     <div v-for="(player, playerIndex) in activePlayers" :key="playerIndex">
@@ -37,22 +37,58 @@
     <!-- Navigation buttons for holes -->
     <div>
       <!-- Button for previous hole -->
-      <button @click="previousHole">&lt;</button>
+      <button class="arrow-left" @click="previousHole">&lt;</button>
       <!-- Buttons for each hole -->
       <button
-        v-for="(hole, index) in holes"
-        :key="index"
-        @click="setCurrentHole(index)"
+        v-for="buttonIndex in visibleButtonIndexes"
+        :key="buttonIndex"
+        @click="setCurrentHole(buttonIndex)"
+        :class="{
+          highlighted: buttonIndex === currentHoleIndex,
+          'not-highlighted': buttonIndex !== currentHoleIndex,
+          'round-link': true,
+        }"
       >
-        {{ index + 1 }}
+        {{ buttonIndex + 1 }}
       </button>
+
       <!-- Button for next hole -->
-      <button @click="nextHole">&gt;</button>
+      <button class="arrow-right" @click="nextHole">&gt;</button>
     </div>
   </div>
   <!-- If no holes are available -->
   <div v-else>No holes available.</div>
 </template>
+
+<style scoped>
+.highlighted {
+  background-color: #3b7c7d; /* You can change the color as per your design */
+}
+.not-highlighted {
+  background-color: #d5eae3;
+}
+
+.round-link {
+  /* background-color: #d5eae3; */
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 15px 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 4px;
+}
+.arrow-left {
+  margin-top: 15px;
+  margin-right: 6px;
+  height: 25px;
+}
+.arrow-right {
+  margin-top: 15px;
+  margin-left: 6px;
+  height: 25px;
+}
+</style>
 
 <script>
 import { API_URL } from "../main.js";
@@ -68,12 +104,14 @@ export default {
       selectedCourse: "", // Selected course initialized
       holes: [], // Initialize holes
       currentHoleIndex: 0, // Initialize current hole index
+      visibleButtonIndexes: [], // Visible button indexes
     };
   },
   async created() {
     // Retrieve selected course from local storage
     this.selectedCourse = localStorage.getItem("selectedCourse");
     await this.fetchPlayerData();
+    this.updateVisibleButtons();
   },
   async mounted() {
     // Re-fetch player data if not up to date
@@ -94,6 +132,11 @@ export default {
     },
     currentHoleEnd() {
       return this.currentHole ? this.currentHole.coordinates.end : "";
+    },
+  },
+  watch: {
+    currentHoleIndex() {
+      this.updateVisibleButtons();
     },
   },
   methods: {
@@ -291,6 +334,23 @@ export default {
       } catch (error) {
         console.error("Error saving throw data:", error);
       }
+    },
+
+    updateVisibleButtons() {
+      const totalButtons = 3;
+      const halfButtons = Math.floor(totalButtons / 2);
+
+      let start = Math.max(0, this.currentHoleIndex - halfButtons);
+      let end = Math.min(this.holes.length - 1, start + totalButtons - 1);
+
+      if (end - start + 1 < totalButtons) {
+        start = Math.max(0, end - totalButtons + 1);
+      }
+
+      this.visibleButtonIndexes = Array.from(
+        { length: end - start + 1 },
+        (_, i) => i + start
+      );
     },
   },
 };
