@@ -79,4 +79,8 @@ nav a.router-link-exact-active {
   color: var(--dunkelgruen);
   border-radius: 100%;
 }
+
+.router-link {
+  text-decoration: none;
+}
 </style>

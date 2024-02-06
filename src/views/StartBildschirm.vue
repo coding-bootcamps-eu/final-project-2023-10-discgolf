@@ -3,7 +3,9 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo_discgolf.png" />
     <h1>Willkommen in der DiscGolf-App</h1>
-    <router-link to="/course" class="button-hell margin">Play now!</router-link>
+    <router-link to="/course" class="button-hell margin router-link"
+      >Play now!</router-link
+    >
   </div>
 </template>
 

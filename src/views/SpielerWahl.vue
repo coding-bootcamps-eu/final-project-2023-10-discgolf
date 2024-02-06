@@ -1,7 +1,7 @@
 <template>
   <div class="balken"></div>
   <div class="main">
-    <router-link to="/nav">
+    <router-link class="router-link" to="/nav">
       <div><BackButton /></div
     ></router-link>
     <h2>Fügen Sie die Namen der Spieler ein:</h2>

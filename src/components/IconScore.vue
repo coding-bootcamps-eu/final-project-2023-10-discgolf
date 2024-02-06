@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/scores">
+  <router-link class="router-link" to="/scores">
     <div class="icon">
       <img alt="Score" src="../assets/navicons/03Vector.png" /><br /><img
         src="../assets/navicons/03Label.png"

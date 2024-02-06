@@ -3,7 +3,7 @@
     <router-link to="/ansicht"
       ><img alt="Karte" src="@/assets/navicons/01Vector.png" /><br /><img
         src="@/assets/navicons/01Label.png"
-        class="label"
+        class="label router-link"
     /></router-link>
   </div>
 </template>
