@@ -1,16 +1,19 @@
 <template>
   <div>
+    <div v-for="(loecher, index) in lochanzahl[selectedCourse]" :key="loecher">
+      <p>{{ index + 1 }}</p>
+    </div>
+    <p>totalScore</p>
     <div v-for="user in activeUsers" :key="user.id">
       <p>{{ user.name }}</p>
       <p>{{ user[selectedCourse].index }}</p>
       <!-- <p>{{ user.active }}</p>  -->
       <!-- <p>{{ activeUsers }}</p> -->
-      <div v-for="(holes, index) in user[selectedCourse]" :key="holes">
+      <!-- <div v-for="(holes, index) in user[selectedCourse]" :key="holes">
         <p>{{ index + 1 }}</p>
-      </div>
+      </div> -->
       <!-- <p>{{ user.blue }}</p> -->
       <p>{{ user[selectedCourse].toString() }}</p>
-      <p>{{ selectedCourse }}</p>
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@ export default {
     return {
       activeUsers: [],
       selectedCourse: "",
+      lochanzahl: "",
     };
   },
   created() {
@@ -34,6 +38,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           this.activeUsers = data.filter((user) => user.active);
+          this.lochanzahl = data[0];
         });
     },
   },

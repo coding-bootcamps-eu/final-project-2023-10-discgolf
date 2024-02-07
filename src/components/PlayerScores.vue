@@ -21,7 +21,7 @@
       class="player-row"
     >
       <!-- Anzeige des Spielernamens -->
-      <div class="player-name">{{ player.name }}</div>
+      <div class="player-name">{{ player.name }} ({{ player.totalScore }})</div>
       <!-- Button zum Verringern der Anzahl von Würfen -->
       <div class="plus-minus-button" @click="reduceThrow(playerIndex)">
         <img src="../assets/minus-icon.png" />
