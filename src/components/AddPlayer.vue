@@ -36,12 +36,13 @@
       Löschen
     </button>
     <!-- Schaltfläche zum Bestätigen der Spieler -->
-    <router-link
+    <button
       to="/scores"
       class="button-hell router-link"
       @click="confirmPlayers"
-      >Hinzufügen</router-link
     >
+      Hinzufügen
+    </button>
   </div>
 </template>
 
@@ -270,6 +271,9 @@ export default {
           );
         }
       }
+
+      // Nachdem alle Spieler aktualisiert wurden, zu /scores navigieren
+      this.$router.push("/scores");
     },
 
     // Spielerauswahl umschalten
