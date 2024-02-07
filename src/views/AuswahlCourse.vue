@@ -2,8 +2,8 @@
   <div class="balken"></div>
   <div class="about">
     <img alt="Vue logo" src="../assets/logo_discgolf_klein.png" />
-    <h1>Füllen Sie Spielstätten- und Layout-Daten aus</h1>
-    <MapSelection />
+    <h1></h1>
+    <div class="map-selection"><MapSelection /></div>
   </div>
 </template>
 
@@ -36,5 +36,11 @@ h1 {
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 32px;
   color: var(--hellgruen);
+}
+.about img {
+  margin-top: 50px;
+}
+.map-selection {
+  margin: 50px auto;
 }
 </style>
