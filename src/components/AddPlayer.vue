@@ -1,12 +1,12 @@
 <template>
   <!-- Formular zum Hinzufügen, Bearbeiten und Löschen von Spielern -->
-  <div>
+  <div class="form">
     <!-- Eingabefeld zum Hinzufügen neuer Spieler -->
     <input
       v-model.trim="newUserName"
       @keyup.enter="addNewUser"
       placeholder="Geben Sie den Spielernamen ein"
-    />
+    /><br />
     <!-- Schaltfläche zum Hinzufügen neuer Spieler -->
     <button @click="addNewUser">Spieler hinzufügen</button>
 
@@ -31,18 +31,14 @@
         />
       </li>
     </ul>
-
-    <button class="button-ganz-hell" @click="removeSelectedUsers">
-      Löschen
-    </button>
-    <!-- Schaltfläche zum Bestätigen der Spieler -->
-    <button
-      to="/scores"
-      class="button-hell router-link"
-      @click="confirmPlayers"
-    >
-      Hinzufügen
-    </button>
+    <div class="buttons">
+      <button class="button-ganz-hell" @click="removeSelectedUsers">
+        Löschen
+      </button>
+      <!-- Schaltfläche zum Bestätigen der Spieler -->
+      <button to="/scores" class="button-hell" @click="confirmPlayers"
+        >Hinzufügen</button>
+    </div>
   </div>
 </template>
 
@@ -290,3 +286,43 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.form input {
+  height: 40px;
+  border-radius: 15px;
+  background-color: #d4eae3;
+  width: 70%;
+  text-align: center;
+}
+.form button {
+  text-decoration: none;
+  padding: 9px 12px;
+  box-shadow: 0 1px 2px var(--dunkelgruen);
+  margin-top: 20px;
+  background-color: #afdacc;
+  border: 1px groove var(--dunkelgruen);
+  box-shadow: 0 1px 2px var(--dunkelgruen);
+  border-radius: 10px;
+  color: var(--dunkelgruen);
+}
+.buttons {
+  position: absolute;
+  top: 600px;
+  margin: auto;
+  left: 65px;
+}
+.button-hell {
+  text-decoration: none;
+  padding: 12px;
+  box-shadow: 0 1px 2px var(--dunkelgruen);
+  width: 150px;
+}
+.button-ganz-hell {
+  text-decoration: none;
+  padding: 12px;
+  box-shadow: 0 1px 2px var(--dunkelgruen);
+  margin-right: 20px;
+  width: 120px;
+}
+</style>
