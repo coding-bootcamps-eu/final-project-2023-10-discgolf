@@ -17,18 +17,21 @@
       <BalkenUnten />
     </div>
   </div>
+  <StatistikCalc />
 </template>
 
 <script>
 import ArrowNavigation from "@/components/ArrowNavigation.vue";
 import BalkenUnten from "@/components/BalkenUnten.vue";
 import BackButton from "@/components/BackButton.vue";
+import StatistikCalc from "@/components/StatistikCalc.vue";
 
 export default {
   components: {
     ArrowNavigation,
     BalkenUnten,
     BackButton,
+    StatistikCalc,
   },
 };
 </script>
