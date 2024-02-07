@@ -78,6 +78,7 @@ nav a.router-link-exact-active {
   font-weight: bolder;
   color: var(--dunkelgruen);
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .router-link {

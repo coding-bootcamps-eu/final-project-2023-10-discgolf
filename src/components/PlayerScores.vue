@@ -15,45 +15,48 @@
       {{ currentHole.par }} - Länge - {{ currentHole.length }}m
     </h2>
     <!-- Schleife durch alle Spieler für das aktuelle Loch -->
-    <div v-for="(player, playerIndex) in activePlayers" :key="playerIndex">
-      <div>
-        <!-- Anzeige des Spielernamens -->
-        <span>{{ player.name }} ({{ player.totalScore }})</span>
-        <!-- Button zum Verringern der Anzahl von Würfen -->
-        <button class="plus-minus-button" @click="reduceThrow(playerIndex)">
-          -
-        </button>
-        <!-- Anzeige der Anzahl von Würfen -->
-        <span>{{ player.throws[currentHoleIndex] }}</span>
-        <!-- Button zum Erhöhen der Anzahl von Würfen -->
-        <button class="plus-minus-button" @click="increaseThrow(playerIndex)">
-          +
-        </button>
+    <div
+      v-for="(player, playerIndex) in activePlayers"
+      :key="playerIndex"
+      class="player-row"
+    >
+      <!-- Anzeige des Spielernamens -->
+      <div class="player-name">{{ player.name }}</div>
+      <!-- Button zum Verringern der Anzahl von Würfen -->
+      <div class="plus-minus-button" @click="reduceThrow(playerIndex)">
+        <img src="../assets/minus-icon.png" />
       </div>
-      <!-- Anzeige des Gesamtpars und der Gesamtpunktzahl für jeden Spieler -->
-      <!-- <p>Total Par: {{ player.totalPar }}</p>
-      <p>Total Score: {{ player.totalScore }}</p> -->
+      <!-- Anzeige der Anzahl von Würfen -->
+      <div class="throw-count">{{ player.throws[currentHoleIndex] }}</div>
+      <!-- Button zum Erhöhen der Anzahl von Würfen -->
+      <div class="plus-minus-button" @click="increaseThrow(playerIndex)">
+        <img src="../assets/plus-icon.png" />
+      </div>
     </div>
     <!-- Navigationsbuttons für Löcher -->
-    <div>
+    <div class="arrow-menu">
       <!-- Button für vorheriges Loch -->
-      <button class="arrow-left" @click="previousHole">&lt;</button>
+      <div class="arrow-left" @click="previousHole">
+        <img src="../assets/arrow-left.png" alt="left" />
+      </div>
       <!-- Buttons für jedes Loch -->
-      <button
-        v-for="buttonIndex in visibleButtonIndexes"
+      <div
+        v-for="(index, buttonIndex) in visibleButtonIndexes"
         :key="buttonIndex"
-        @click="setCurrentHole(buttonIndex)"
+        @click="setCurrentHole(index)"
         :class="{
-          highlighted: buttonIndex === currentHoleIndex,
-          'not-highlighted': buttonIndex !== currentHoleIndex,
+          highlighted: index === currentHoleIndex,
+          'not-highlighted': index !== currentHoleIndex,
           'round-link': true,
         }"
       >
-        {{ buttonIndex + 1 }}
-      </button>
+        {{ index + 1 }}
+      </div>
 
       <!-- Button für nächstes Loch -->
-      <button class="arrow-right" @click="nextHole">&gt;</button>
+      <div class="arrow-right" @click="nextHole">
+        <img src="../assets/arrow-right.png" alt="right" />
+      </div>
     </div>
   </div>
   <!-- Wenn keine Löcher verfügbar sind -->
@@ -375,15 +378,52 @@ export default {
   font-size: 0.8rem;
   font-weight: 600;
   padding-top: 4px;
+  cursor: pointer;
 }
-.arrow-left {
-  margin-top: 15px;
-  margin-right: 6px;
-  height: 25px;
-}
-.arrow-right {
+
+.arrow-left img,
+.arrow-right img {
+  height: auto;
   margin-top: 15px;
   margin-left: 6px;
   height: 25px;
+  cursor: pointer;
+}
+.arrow-left img:hover,
+.arrow-right img:hover {
+  filter: brightness(0.5);
+}
+
+.arrow-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: sticky;
+}
+.player-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.player-name {
+  flex: 1;
+
+  text-align: left;
+}
+
+.throw-count {
+  margin: 0 20px;
+}
+
+.plus-minus-button {
+  margin-left: 10px;
 }
 </style>

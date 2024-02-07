@@ -8,7 +8,7 @@
       placeholder="Geben Sie den Spielernamen ein"
     /><br />
     <!-- Schaltfläche zum Hinzufügen neuer Spieler -->
-    <button @click="addNewUser">Spieler hinzufügen</button>
+    <button class="spieler-add" @click="addNewUser">Spieler hinzufügen</button>
 
     <!-- Liste der vorhandenen Spieler -->
     <ul>
@@ -22,7 +22,9 @@
           />
         </span>
         <!-- Anzeige des Spielernamens mit Schaltfläche zum Bearbeiten -->
-        <span v-else @click="toggleEdit(user.id)">{{ user.name }}</span>
+        <span class="spieler-edit" v-else @click="toggleEdit(user.id)">{{
+          user.name
+        }}</span>
         <!-- Checkbox zur Auswahl des Spielers -->
         <input
           type="checkbox"
@@ -307,36 +309,18 @@ export default {
   border-radius: 10px;
   color: var(--dunkelgruen);
 }
-li {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-}
-ul {
-  grid-column-start: 1;
-  list-style-type: none;
-  text-align: left;
-  margin-left: 15px;
-}
-ul input[type="checkbox"] {
-  grid-column-start: 2;
-  width: 22px;
-  height: 22px;
-  border: 1px solid black;
-  background-color: var(--hellgruen);
-  border-radius: 5px;
-}
 .buttons {
   position: absolute;
-  top: 640px;
+  top: 600px;
   margin: auto;
-  left: 55px;
+  left: 65px;
 }
 .button-hell {
   text-decoration: none;
   padding: 12px;
   box-shadow: 0 1px 2px var(--dunkelgruen);
   width: 150px;
+  cursor: pointer;
 }
 .button-ganz-hell {
   text-decoration: none;
@@ -344,5 +328,12 @@ ul input[type="checkbox"] {
   box-shadow: 0 1px 2px var(--dunkelgruen);
   margin-right: 20px;
   width: 120px;
+  cursor: pointer;
+}
+.spieler-edit {
+  cursor: pointer;
+}
+.spieler-add {
+  cursor: pointer;
 }
 </style>
