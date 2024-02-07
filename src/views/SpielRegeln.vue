@@ -1,7 +1,9 @@
 <template>
   <div class="balken"></div>
   <div class="about"></div>
-  <div><BackButton /></div>
+  <router-link to="/nav">
+    <div><BackButton /></div>
+  </router-link>
   <div class="menu">
     <div class="rules">
       <h2>Die Spielregeln</h2>
