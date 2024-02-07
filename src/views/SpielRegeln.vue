@@ -1,7 +1,7 @@
 <template>
   <div class="balken"></div>
   <div class="about"></div>
-  <router-link to="/nav">
+  <router-link class="router-link" to="/nav">
     <div><BackButton /></div>
   </router-link>
   <div class="menu">
