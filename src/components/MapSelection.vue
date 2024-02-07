@@ -1,6 +1,6 @@
 <template>
   <!-- Auswahl der Spielstätte und des Layouts -->
-  <div>
+  <div class="selects">
     <label for="map">Spielstätte:</label>
     <!-- Dropdown-Menü für die Auswahl der Spielstätte -->
     <select v-model="selectedMap" @change="fetchCourses">
@@ -20,12 +20,10 @@
         {{ course }}
       </option>
     </select>
-
+  </div>
+  <div class="submit">
     <!-- Bestätigungstaste -->
-    <router-link
-      to="/nav"
-      class="button-hell router-link"
-      @click="saveSelection"
+    <router-link to="/nav" class="button-hell" @click="saveSelection"
       >Bestätigen</router-link
     >
   </div>
@@ -90,3 +88,32 @@ export default {
   },
 };
 </script>
+<style scoped>
+.selects {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 70%;
+  margin-top: 15px;
+}
+.selects label {
+  text-align: left;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.selects select {
+  height: 40px;
+  border-radius: 15px;
+  background-color: #afdacc;
+}
+.submit {
+  text-align: right;
+  margin-right: 60px;
+  margin-top: 45px;
+}
+.button-hell {
+  text-decoration: none;
+  padding: 12px;
+  box-shadow: 0 1px 2px var(--dunkelgruen);
+}
+</style>
