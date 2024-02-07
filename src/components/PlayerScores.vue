@@ -411,6 +411,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 5px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .player-name {
