@@ -61,6 +61,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "ansicht" */ "../views/SpielRegeln.vue"),
   },
+  path: "/statistik",
+  name: "statistik",
+  // route level code-splitting
+  // this generates a separate chunk (about.[hash].js) for this route
+  // which is lazy-loaded when the route is visited.
+  component: () =>
+    import(/* webpackChunkName: "ansicht" */ "../views/SpielStatistik.vue"),
+},
 ];
 
 const router = createRouter({
