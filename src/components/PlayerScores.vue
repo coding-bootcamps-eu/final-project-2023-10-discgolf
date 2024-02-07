@@ -399,7 +399,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  top: 875px;
+  top: 795px;
   margin: auto;
   left: 45%;
 }
