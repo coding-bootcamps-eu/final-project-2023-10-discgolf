@@ -309,6 +309,28 @@ export default {
   border-radius: 10px;
   color: var(--dunkelgruen);
 }
+ul {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin-left: 15px;
+  width: 80%;
+}
+li {
+  list-style-type: none;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-align: left;
+}
+li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 80%;
+  border-radius: 6px;
+}
+li + li {
+  margin-top: 10px;
+}
 .buttons {
   position: absolute;
   top: 600px;
