@@ -1,10 +1,9 @@
 <template>
   <div class="icon">
-    <router-link to="/ansicht"
-      ><img alt="Karte" src="@/assets/navicons/01Vector.png" /><br /><img
-        src="@/assets/navicons/01Label.png"
-        class="label router-link"
-    /></router-link>
+    <img alt="Karte" src="@/assets/navicons/01Vector.png" /><br /><img
+      src="@/assets/navicons/01Label.png"
+      class="label router-link"
+    />
   </div>
 </template>
 <script>

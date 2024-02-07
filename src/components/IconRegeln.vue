@@ -1,11 +1,10 @@
 <template>
-  <router-link class="router-link" to="/regeln">
-    <div class="icon">
-      <img alt="Regeln" src="../assets/navicons/05Vector.png" /><br /><img
-        src="../assets/navicons/05Label.png"
-        class="label"
-      /></div
-  ></router-link>
+  <div class="icon">
+    <img alt="Regeln" src="../assets/navicons/05Vector.png" /><br /><img
+      src="../assets/navicons/05Label.png"
+      class="label"
+    />
+  </div>
 </template>
 
 <script>
