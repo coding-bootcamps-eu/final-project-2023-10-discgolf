@@ -21,7 +21,7 @@
       class="player-row"
     >
       <!-- Anzeige des Spielernamens -->
-      <div class="player-name">{{ player.name }}</div>
+      <div class="player-name">{{ player.name }} ({{ player.totalScore }})</div>
       <!-- Button zum Verringern der Anzahl von Würfen -->
       <div class="plus-minus-button-left" @click="reduceThrow(playerIndex)">
         <img src="../assets/minus-icon.png" />
@@ -33,6 +33,7 @@
         <img src="../assets/plus-icon.png" />
       </div>
     </div>
+
     <!-- Navigationsbuttons für Löcher -->
     <div class="arrow-menu">
       <!-- Button für vorheriges Loch -->
@@ -61,6 +62,9 @@
   </div>
   <!-- Wenn keine Löcher verfügbar sind -->
   <div v-else>Keine Löcher verfügbar.</div>
+  <router-link class="router-link" to="/statistik">
+    <div><SpielStatistik />BUTTON</div>
+  </router-link>
 </template>
 
 <script>
@@ -187,11 +191,12 @@ export default {
               userData[this.selectedCourse][this.currentHoleIndex] + 1 || 1;
 
             // Die Würfe für den Spieler im this.players-Array aktualisieren
-            this.players[playerIndex].throws = userData[this.selectedCourse];
+            this.activePlayers[playerIndex].throws =
+              userData[this.selectedCourse];
 
             // Gesamtpar und Gesamtpunktzahl für den Spieler neu berechnen
-            this.calculateTotalPar(this.players[playerIndex]);
-            this.calculateTotalScore(this.players[playerIndex]);
+            this.calculateTotalPar(this.activePlayers[playerIndex]);
+            this.calculateTotalScore(this.activePlayers[playerIndex]);
 
             // Anfrage zum Aktualisieren der Benutzerdaten senden
             const updateResponse = await fetch(
@@ -243,11 +248,12 @@ export default {
               userData[this.selectedCourse][this.currentHoleIndex] - 1 || 0;
 
             // Die Würfe für den Spieler im this.players-Array aktualisieren
-            this.players[playerIndex].throws = userData[this.selectedCourse];
+            this.activePlayers[playerIndex].throws =
+              userData[this.selectedCourse];
 
             // Gesamtpar und Gesamtpunktzahl für den Spieler neu berechnen
-            this.calculateTotalPar(this.players[playerIndex]);
-            this.calculateTotalScore(this.players[playerIndex]);
+            this.calculateTotalPar(this.activePlayers[playerIndex]);
+            this.calculateTotalScore(this.activePlayers[playerIndex]);
 
             // Anfrage zum Aktualisieren der Benutzerdaten senden
             const updateResponse = await fetch(
