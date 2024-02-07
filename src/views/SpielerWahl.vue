@@ -28,14 +28,14 @@ export default {
 .about {
   background-color: var(--hellgruen);
 }
-h1 {
-  margin: 0px;
+h2 {
+  margin-left: 25px;
 }
 .main {
   position: relative;
 }
 .balken-unten {
   position: absolute;
-  top: 675px;
+  top: 739px;
 }
 </style>

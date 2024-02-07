@@ -307,11 +307,30 @@ export default {
   border-radius: 10px;
   color: var(--dunkelgruen);
 }
+li {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+ul {
+  grid-column-start: 1;
+  list-style-type: none;
+  text-align: left;
+  margin-left: 15px;
+}
+ul input[type="checkbox"] {
+  grid-column-start: 2;
+  width: 22px;
+  height: 22px;
+  border: 1px solid black;
+  background-color: var(--hellgruen);
+  border-radius: 5px;
+}
 .buttons {
   position: absolute;
-  top: 600px;
+  top: 640px;
   margin: auto;
-  left: 65px;
+  left: 55px;
 }
 .button-hell {
   text-decoration: none;
