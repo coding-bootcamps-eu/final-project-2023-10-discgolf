@@ -1,4 +1,5 @@
 <template>
+  <div class="balken"></div>
   <div class="about">
     <router-link class="router-link" to="/nav"
       ><div><BackButton /></div
@@ -18,3 +19,16 @@ export default {
   },
 };
 </script>
+<style scoped>
+.back-btn {
+  height: 56px;
+  width: 116px;
+  background-color: var(--dunkelgruen);
+  border-radius: 15px;
+  margin: 15px 25px 15px 25px;
+  color: #d5eae3;
+  font-size: 1rem;
+  padding-top: 17px;
+  font-weight: 600;
+}
+</style>

@@ -10,10 +10,10 @@
       :zoom="17.5"
     />
 
-    <h2>
+    <h3>
       {{ currentHoleIndex + 1 }}. {{ currentHole.title }} - Par
       {{ currentHole.par }} - Länge - {{ currentHole.length }}m
-    </h2>
+    </h3>
     <!-- Schleife durch alle Spieler für das aktuelle Loch -->
     <div
       v-for="(player, playerIndex) in activePlayers"
@@ -23,13 +23,13 @@
       <!-- Anzeige des Spielernamens -->
       <div class="player-name">{{ player.name }}</div>
       <!-- Button zum Verringern der Anzahl von Würfen -->
-      <div class="plus-minus-button" @click="reduceThrow(playerIndex)">
+      <div class="plus-minus-button-left" @click="reduceThrow(playerIndex)">
         <img src="../assets/minus-icon.png" />
       </div>
       <!-- Anzeige der Anzahl von Würfen -->
       <div class="throw-count">{{ player.throws[currentHoleIndex] }}</div>
       <!-- Button zum Erhöhen der Anzahl von Würfen -->
-      <div class="plus-minus-button" @click="increaseThrow(playerIndex)">
+      <div class="plus-minus-button-right" @click="increaseThrow(playerIndex)">
         <img src="../assets/plus-icon.png" />
       </div>
     </div>
@@ -398,7 +398,13 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  position: sticky;
+  position: absolute;
+  top: 795px;
+  margin: auto;
+  left: 45%;
+}
+h3 {
+  margin: 25px 30px;
 }
 .player-container {
   display: flex;
@@ -407,23 +413,35 @@ export default {
 }
 
 .player-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 200px, 0.5fr, 0.5fr, 0.5fr;
   margin-bottom: 5px;
 }
 
 .player-name {
-  flex: 1;
-
+  margin-left: 35px;
   text-align: left;
+  grid-column-start: 1;
 }
 
 .throw-count {
-  margin: 0 20px;
+  /* margin: 0; */
+  grid-column-start: 3;
+  position: absolute;
+  left: 57%;
 }
 
-.plus-minus-button {
-  margin-left: 10px;
+.plus-minus-button-left {
+  /* margin-left: 10px; */
+  grid-column-start: 2;
+  position: absolute;
+  left: 54.5%;
+}
+.plus-minus-button-right {
+  /* margin-left: 10px; */
+  grid-column-start: 4;
+  margin-right: 25px;
+  position: absolute;
+  left: 59%;
 }
 </style>
