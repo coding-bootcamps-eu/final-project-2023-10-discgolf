@@ -416,6 +416,8 @@ h3 {
   display: grid;
   grid-template-columns: 200px, 0.5fr, 0.5fr, 0.5fr;
   margin-bottom: 5px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .player-name {
