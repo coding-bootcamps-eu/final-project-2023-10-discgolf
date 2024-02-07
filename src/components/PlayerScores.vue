@@ -1,7 +1,7 @@
 <template>
-  <!-- If holes are available -->
+  <!-- Wenn Löcher verfügbar sind -->
   <div v-if="holes.length > 0">
-    <!-- Title of the current hole and par display -->
+    <!-- Titel des aktuellen Lochs und Par-Anzeige -->
     <HoleMap
       :key="currentHoleIndex"
       :view="currentHoleView"
@@ -11,47 +11,53 @@
     />
 
     <h2>
-      {{ currentHole.title }} - Par {{ currentHole.par }} - Coords Länge -
-      {{ currentHole.length }}m
+      {{ currentHoleIndex + 1 }}. {{ currentHole.title }} - Par
+      {{ currentHole.par }} - Länge - {{ currentHole.length }}m
     </h2>
-    <!-- Loop through all players for the current hole -->
+    <!-- Schleife durch alle Spieler für das aktuelle Loch -->
     <div v-for="(player, playerIndex) in activePlayers" :key="playerIndex">
       <div>
-        <!-- Display player name -->
-        <span>{{ player.name }}</span>
-        <!-- Button to decrease the number of throws -->
+        <!-- Anzeige des Spielernamens -->
+        <span>{{ player.name }} ({{ player.totalScore }})</span>
+        <!-- Button zum Verringern der Anzahl von Würfen -->
         <button class="plus-minus-button" @click="reduceThrow(playerIndex)">
           -
         </button>
-        <!-- Display number of throws -->
+        <!-- Anzeige der Anzahl von Würfen -->
         <span>{{ player.throws[currentHoleIndex] }}</span>
-        <!-- Button to increase the number of throws -->
+        <!-- Button zum Erhöhen der Anzahl von Würfen -->
         <button class="plus-minus-button" @click="increaseThrow(playerIndex)">
           +
         </button>
       </div>
-      <!-- Display total par and total score for each player -->
-      <p>Total Par: {{ player.totalPar }}</p>
-      <p>Total Score: {{ player.totalScore }}</p>
+      <!-- Anzeige des Gesamtpars und der Gesamtpunktzahl für jeden Spieler -->
+      <!-- <p>Total Par: {{ player.totalPar }}</p>
+      <p>Total Score: {{ player.totalScore }}</p> -->
     </div>
-    <!-- Navigation buttons for holes -->
+    <!-- Navigationsbuttons für Löcher -->
     <div>
-      <!-- Button for previous hole -->
-      <button @click="previousHole">&lt;</button>
-      <!-- Buttons for each hole -->
+      <!-- Button für vorheriges Loch -->
+      <button class="arrow-left" @click="previousHole">&lt;</button>
+      <!-- Buttons für jedes Loch -->
       <button
-        v-for="(hole, index) in holes"
-        :key="index"
-        @click="setCurrentHole(index)"
+        v-for="buttonIndex in visibleButtonIndexes"
+        :key="buttonIndex"
+        @click="setCurrentHole(buttonIndex)"
+        :class="{
+          highlighted: buttonIndex === currentHoleIndex,
+          'not-highlighted': buttonIndex !== currentHoleIndex,
+          'round-link': true,
+        }"
       >
-        {{ index + 1 }}
+        {{ buttonIndex + 1 }}
       </button>
-      <!-- Button for next hole -->
-      <button @click="nextHole">&gt;</button>
+
+      <!-- Button für nächstes Loch -->
+      <button class="arrow-right" @click="nextHole">&gt;</button>
     </div>
   </div>
-  <!-- If no holes are available -->
-  <div v-else>No holes available.</div>
+  <!-- Wenn keine Löcher verfügbar sind -->
+  <div v-else>Keine Löcher verfügbar.</div>
 </template>
 
 <script>
@@ -64,19 +70,21 @@ export default {
   },
   data() {
     return {
-      players: [], // List of players
-      selectedCourse: "", // Selected course initialized
-      holes: [], // Initialize holes
-      currentHoleIndex: 0, // Initialize current hole index
+      players: [], // Liste der Spieler
+      selectedCourse: "", // Ausgewählter Kurs initialisiert
+      holes: [], // Löcher initialisieren
+      currentHoleIndex: 0, // Aktuellen Lochindex initialisieren
+      visibleButtonIndexes: [], // Sichtbare Schaltflächenindizes
     };
   },
   async created() {
-    // Retrieve selected course from local storage
+    // Ausgewählten Kurs aus dem lokalen Speicher abrufen
     this.selectedCourse = localStorage.getItem("selectedCourse");
     await this.fetchPlayerData();
+    this.updateVisibleButtons();
   },
   async mounted() {
-    // Re-fetch player data if not up to date
+    // Spielerdaten erneut abrufen, wenn sie nicht auf dem neuesten Stand sind
     await this.fetchPlayerData();
   },
   computed: {
@@ -96,68 +104,73 @@ export default {
       return this.currentHole ? this.currentHole.coordinates.end : "";
     },
   },
+  watch: {
+    currentHoleIndex() {
+      this.updateVisibleButtons();
+    },
+  },
   methods: {
     async fetchPlayerData() {
       try {
-        // Fetch player data
+        // Spielerdaten abrufen
         const response = await fetch(`${API_URL}/users`);
         const users = await response.json();
 
-        // Process player data
+        // Spielerdaten verarbeiten
         this.players = users.map((user) => ({
           id: user.id,
           name: user.name,
-          active: user.active, // Set active property directly from API
+          active: user.active, // Aktive Eigenschaft direkt aus der API setzen
           throws: JSON.parse(
             JSON.stringify(user[this.selectedCourse] || [])
-          ).map((value) => (value !== null ? value : 0)), // Deep copy throw array and handle null values
+          ).map((value) => (value !== null ? value : 0)), // Wurfarray tief kopieren und Nullwerte behandeln
           totalPar: 0,
           totalScore: 0,
         }));
 
-        // Fetch selected map and course data from local storage
+        // Ausgewählte Karten- und Kursdaten aus dem lokalen Speicher abrufen
         const selectedMap = localStorage.getItem("selectedMap");
 
-        // Fetch track data
+        // Streckendaten abrufen
         const tracksResponse = await fetch(`${API_URL}/tracks`);
         const data = await tracksResponse.json();
 
-        // Find selected map data
+        // Ausgewählte Karten-Daten finden
         const selectedMapData = data.find((map) => map.id === selectedMap);
 
-        // Assign holes to selected course data
+        // Löcher den ausgewählten Kursdaten zuweisen
         this.holes = selectedMapData.courses[this.selectedCourse];
 
-        // Calculate total par and total score
+        // Gesamtpar und Gesamtpunktzahl berechnen
         this.players.forEach((player) => {
           this.calculateTotalPar(player);
           this.calculateTotalScore(player);
         });
       } catch (error) {
-        console.error("Error fetching player data:", error);
+        console.error("Fehler beim Abrufen der Spielerdaten:", error);
       }
     },
 
-    // Method to set the current hole
+    // Methode zum Festlegen des aktuellen Lochs
     setCurrentHole(index) {
       this.currentHoleIndex = index;
     },
 
-    // Method to switch to previous hole
+    // Methode zum Wechseln zum vorherigen Loch
     previousHole() {
       if (this.currentHoleIndex > 0) {
         this.currentHoleIndex--;
       }
     },
 
-    // Method to switch to next hole
+    // Methode zum Wechseln zum nächsten Loch
     nextHole() {
       if (this.currentHoleIndex < this.holes.length - 1) {
         this.currentHoleIndex++;
       }
     },
 
-    // Method to increase the number of throws for a player on a hole
+    // Methode zum Erhöhen der Anzahl von Würfen für einen Spieler auf einem Loch
     async increaseThrow(playerIndex) {
       const player = this.activePlayers[playerIndex];
       if (player) {
@@ -166,11 +179,18 @@ export default {
           const userData = await response.json();
 
           if (response.ok) {
-            // Update throws for selected course
+            // Würfe für den ausgewählten Kurs für den spezifischen Spieler aktualisieren
             userData[this.selectedCourse][this.currentHoleIndex] =
               userData[this.selectedCourse][this.currentHoleIndex] + 1 || 1;
 
-            // Send request to update user data
+            // Die Würfe für den Spieler im this.players-Array aktualisieren
+            this.players[playerIndex].throws = userData[this.selectedCourse];
+
+            // Gesamtpar und Gesamtpunktzahl für den Spieler neu berechnen
+            this.calculateTotalPar(this.players[playerIndex]);
+            this.calculateTotalScore(this.players[playerIndex]);
+
+            // Anfrage zum Aktualisieren der Benutzerdaten senden
             const updateResponse = await fetch(
               `${API_URL}/users/${player.id}`,
               {
@@ -183,21 +203,30 @@ export default {
             );
 
             if (updateResponse.ok) {
-              console.log("Player updated:", player.name);
-              await this.fetchPlayerData(); // Update player data after successful update
+              console.log("Spieler aktualisiert:", player.name);
             } else {
-              console.error("Error updating player:", player.name);
+              console.error(
+                "Fehler beim Aktualisieren des Spielers:",
+                player.name
+              );
             }
           } else {
-            console.error("Error fetching user data:", userData.statusText);
+            console.error(
+              "Fehler beim Abrufen der Benutzerdaten:",
+              userData.statusText
+            );
           }
         } catch (error) {
-          console.error("Error updating player:", player.name, error);
+          console.error(
+            "Fehler beim Aktualisieren des Spielers:",
+            player.name,
+            error
+          );
         }
       }
     },
 
-    // Method to decrease the number of throws for a player on a hole
+    // Methode zum Verringern der Anzahl von Würfen für einen Spieler auf einem Loch
     async reduceThrow(playerIndex) {
       const player = this.activePlayers[playerIndex];
       if (player && player.throws[this.currentHoleIndex] > 0) {
@@ -206,11 +235,18 @@ export default {
           const userData = await response.json();
 
           if (response.ok) {
-            // Update throws for selected course
+            // Würfe für den ausgewählten Kurs für den spezifischen Spieler aktualisieren
             userData[this.selectedCourse][this.currentHoleIndex] =
               userData[this.selectedCourse][this.currentHoleIndex] - 1 || 0;
 
-            // Send request to update user data
+            // Die Würfe für den Spieler im this.players-Array aktualisieren
+            this.players[playerIndex].throws = userData[this.selectedCourse];
+
+            // Gesamtpar und Gesamtpunktzahl für den Spieler neu berechnen
+            this.calculateTotalPar(this.players[playerIndex]);
+            this.calculateTotalScore(this.players[playerIndex]);
+
+            // Anfrage zum Aktualisieren der Benutzerdaten senden
             const updateResponse = await fetch(
               `${API_URL}/users/${player.id}`,
               {
@@ -223,21 +259,30 @@ export default {
             );
 
             if (updateResponse.ok) {
-              console.log("Player updated:", player.name);
-              await this.fetchPlayerData(); // Update player data after successful update
+              console.log("Spieler aktualisiert:", player.name);
             } else {
-              console.error("Error updating player:", player.name);
+              console.error(
+                "Fehler beim Aktualisieren des Spielers:",
+                player.name
+              );
             }
           } else {
-            console.error("Error fetching user data:", userData.statusText);
+            console.error(
+              "Fehler beim Abrufen der Benutzerdaten:",
+              userData.statusText
+            );
           }
         } catch (error) {
-          console.error("Error updating player:", player.name, error);
+          console.error(
+            "Fehler beim Aktualisieren des Spielers:",
+            player.name,
+            error
+          );
         }
       }
     },
 
-    // Function to calculate the total par of a player
+    // Funktion zum Berechnen des Gesamtpars eines Spielers
     calculateTotalPar(player) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
       player.totalPar = throwsAsNumbers.reduce((total, currentThrow, index) => {
@@ -249,7 +294,7 @@ export default {
       }, 0);
     },
 
-    // Function to calculate the total score of a player
+    // Funktion zum Berechnen der Gesamtpunktzahl eines Spielers
     calculateTotalScore(player) {
       const throwsAsNumbers = player.throws.map((value) => parseInt(value, 10));
       player.totalScore = throwsAsNumbers.reduce((total, currentThrow) => {
@@ -257,23 +302,23 @@ export default {
       }, 0);
     },
 
-    // Function to update the total par and total score of a player
+    // Funktion zum Aktualisieren des Gesamtpars und der Gesamtpunktzahl eines Spielers
     updateScore(player) {
       this.calculateTotalPar(player);
       this.calculateTotalScore(player);
     },
 
-    // Method to save player throw data
+    // Methode zum Speichern von Spielerwurfdaten
     async saveThrowsData(player, selectedCourse, throwsData) {
       try {
-        // Compile user data for update
+        // Benutzerdaten für die Aktualisierung zusammenstellen
         const userData = {
           name: player.name,
           active: player.active,
           [selectedCourse]: throwsData,
         };
 
-        // Send request to update user data
+        // Anfrage zum Aktualisieren der Benutzerdaten senden
         const response = await fetch(`${API_URL}/users/${player.id}`, {
           method: "PUT",
           headers: {
@@ -282,16 +327,63 @@ export default {
           body: JSON.stringify(userData),
         });
 
-        // Check if response was successful
+        // Überprüfen, ob die Antwort erfolgreich war
         if (!response.ok) {
-          throw new Error("Error saving throw data");
+          throw new Error("Fehler beim Speichern der Wurfdaten");
         }
 
-        console.log("Throw data saved successfully");
+        console.log("Wurfdaten erfolgreich gespeichert");
       } catch (error) {
-        console.error("Error saving throw data:", error);
+        console.error("Fehler beim Speichern der Wurfdaten:", error);
       }
+    },
+
+    updateVisibleButtons() {
+      const totalButtons = 3;
+      const halfButtons = Math.floor(totalButtons / 2);
+
+      let start = Math.max(0, this.currentHoleIndex - halfButtons);
+      let end = Math.min(this.holes.length - 1, start + totalButtons - 1);
+
+      if (end - start + 1 < totalButtons) {
+        start = Math.max(0, end - totalButtons + 1);
+      }
+
+      this.visibleButtonIndexes = Array.from(
+        { length: end - start + 1 },
+        (_, i) => i + start
+      );
     },
   },
 };
 </script>
+
+<style scoped>
+.highlighted {
+  background-color: #3b7c7d; /* Sie können die Farbe entsprechend Ihrem Design ändern */
+}
+.not-highlighted {
+  background-color: #d5eae3;
+}
+
+.round-link {
+  /* background-color: #d5eae3; */
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 15px 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 4px;
+}
+.arrow-left {
+  margin-top: 15px;
+  margin-right: 6px;
+  height: 25px;
+}
+.arrow-right {
+  margin-top: 15px;
+  margin-left: 6px;
+  height: 25px;
+}
+</style>
