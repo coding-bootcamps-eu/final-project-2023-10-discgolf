@@ -1,8 +1,5 @@
 <template>
   <div class="balken"></div>
-  <div class="about">
-    <h1></h1>
-  </div>
   <div class="main">
     <router-link class="router-link" to="/"
       ><div><BackButton /></div
@@ -17,11 +14,19 @@
       />
     </div>
     <div class="buttons">
-      <div><IconKarte /></div>
-      <div><IconSpieler /></div>
-      <div><IconScore /></div>
+      <router-link to="/ansicht"
+        ><div><IconKarte /></div
+      ></router-link>
+      <router-link class="router-link" to="/spieler">
+        <div><IconSpieler /></div
+      ></router-link>
+      <router-link class="router-link" to="/scores">
+        <div><IconScore /></div
+      ></router-link>
       <div><IconStatistik /></div>
-      <div><IconRegeln /></div>
+      <router-link class="router-link" to="/regeln">
+        <div><IconRegeln /></div
+      ></router-link>
       <div><IconShop /></div>
     </div>
     <div class="balken-unten"><BalkenUnten /></div>

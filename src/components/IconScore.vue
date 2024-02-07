@@ -1,11 +1,10 @@
 <template>
-  <router-link class="router-link" to="/scores">
-    <div class="icon">
-      <img alt="Score" src="../assets/navicons/03Vector.png" /><br /><img
-        src="../assets/navicons/03Label.png"
-        class="label"
-      /></div
-  ></router-link>
+  <div class="icon">
+    <img alt="Score" src="../assets/navicons/03Vector.png" /><br /><img
+      src="../assets/navicons/03Label.png"
+      class="label"
+    />
+  </div>
 </template>
 
 <script>
