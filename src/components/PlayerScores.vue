@@ -33,6 +33,7 @@
         <img src="../assets/plus-icon.png" />
       </div>
     </div>
+
     <!-- Navigationsbuttons für Löcher -->
     <div class="arrow-menu">
       <!-- Button für vorheriges Loch -->
@@ -61,6 +62,9 @@
   </div>
   <!-- Wenn keine Löcher verfügbar sind -->
   <div v-else>Keine Löcher verfügbar.</div>
+  <router-link class="router-link" to="/statistik">
+    <div><SpielStatistik />BUTTON</div>
+  </router-link>
 </template>
 
 <script>
