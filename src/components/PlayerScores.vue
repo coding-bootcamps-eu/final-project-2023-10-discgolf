@@ -33,7 +33,9 @@
         <img src="../assets/plus-icon.png" />
       </div>
     </div>
-
+    <router-link class="router-link" to="/statistik">
+      <div class="btn-stats"><SpielStatistik />Zur Rundenübersicht</div>
+    </router-link>
     <!-- Navigationsbuttons für Löcher -->
     <div class="arrow-menu">
       <!-- Button für vorheriges Loch -->
@@ -62,9 +64,6 @@
   </div>
   <!-- Wenn keine Löcher verfügbar sind -->
   <div v-else>Keine Löcher verfügbar.</div>
-  <router-link class="router-link" to="/statistik">
-    <div class="btn-stats"><SpielStatistik />Statistik</div>
-  </router-link>
 </template>
 
 <script>
@@ -414,7 +413,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  top: 735px;
+  top: 666px;
   margin: auto;
   left: 30%;
 }
@@ -430,7 +429,7 @@ h3 {
 .player-row {
   display: grid;
   grid-template-columns: 200px, 0.5fr, 0.5fr, 0.5fr;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   margin-left: 25px;
   margin-right: 25px;
 }
@@ -464,17 +463,17 @@ h3 {
   cursor: pointer;
 }
 .btn-stats {
-  border-radius: 8px;
-  width: 100px;
+  border-radius: 11px;
+  /* width: 100px; */
   height: 50px;
   background-color: var(--dunkelgruen);
   color: var(--hellgruen);
-  margin: auto;
-  padding-top: 15px;
+  margin: -12px auto;
+  padding: 15px;
   font-weight: 600;
   text-decoration: none;
   position: absolute;
-  top: 680px;
-  left: 37%;
+  top: 740px;
+  left: 26%;
 }
 </style>
