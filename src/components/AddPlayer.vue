@@ -39,7 +39,7 @@
       </button>
       <!-- Schaltfläche zum Bestätigen der Spieler -->
       <button to="/scores" class="button-hell" @click="confirmPlayers">
-        Hinzufügen
+        Runde Starten
       </button>
     </div>
   </div>
@@ -297,6 +297,8 @@ export default {
   background-color: #d4eae3;
   width: 70%;
   text-align: center;
+  border: none;
+  outline: none;
 }
 .form button {
   text-decoration: none;
