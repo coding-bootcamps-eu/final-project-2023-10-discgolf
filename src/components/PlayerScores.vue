@@ -12,7 +12,7 @@
 
     <h3>
       {{ currentHoleIndex + 1 }}. {{ currentHole.title }} - Par
-      {{ currentHole.par }} - Länge - {{ currentHole.length }}m
+      {{ currentHole.par }} <br />Länge: {{ currentHole.length }}m
     </h3>
     <!-- Schleife durch alle Spieler für das aktuelle Loch -->
     <div
@@ -63,7 +63,7 @@
   <!-- Wenn keine Löcher verfügbar sind -->
   <div v-else>Keine Löcher verfügbar.</div>
   <router-link class="router-link" to="/statistik">
-    <div><SpielStatistik />BUTTON</div>
+    <div class="btn-stats"><SpielStatistik />Statistik</div>
   </router-link>
 </template>
 
@@ -413,9 +413,9 @@ export default {
   flex-direction: row;
   justify-content: center;
   position: absolute;
-  top: 795px;
+  top: 735px;
   margin: auto;
-  left: 45%;
+  left: 30%;
 }
 h3 {
   margin: 25px 30px;
@@ -444,14 +444,14 @@ h3 {
   /* margin: 0; */
   grid-column-start: 3;
   position: absolute;
-  left: 57%;
+  left: 75%;
 }
 
 .plus-minus-button-left {
   /* margin-left: 10px; */
   grid-column-start: 2;
   position: absolute;
-  left: 54.5%;
+  left: 67%;
   cursor: pointer;
 }
 .plus-minus-button-right {
@@ -459,7 +459,21 @@ h3 {
   grid-column-start: 4;
   margin-right: 25px;
   position: absolute;
-  left: 59%;
+  left: 80%;
   cursor: pointer;
+}
+.btn-stats {
+  border-radius: 8px;
+  width: 100px;
+  height: 50px;
+  background-color: var(--dunkelgruen);
+  color: var(--hellgruen);
+  margin: auto;
+  padding-top: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  position: absolute;
+  top: 680px;
+  left: 37%;
 }
 </style>
