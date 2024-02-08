@@ -65,6 +65,7 @@ export default {
     saveSelection() {
       localStorage.setItem("selectedMap", this.selectedMap);
       localStorage.setItem("selectedCourse", this.selectedCourse);
+      localStorage.removeItem("currentHoleIndex");
     },
     // Auswahl aus dem lokalen Speicher abrufen
     retrieveSelection() {
