@@ -1,5 +1,7 @@
 <template>
-  <div class="back-btn">Zurück</div>
+  <div class="back-btn">
+    <img src="../assets/pfeil.png" alt="zurück" class="pfeil" />Zurück
+  </div>
 </template>
 
 <script>
@@ -19,5 +21,10 @@ export default {
   font-size: 1rem;
   padding-top: 17px;
   font-weight: 600;
+}
+.pfeil {
+  margin-right: 8px;
+  width: 0.8rem;
+  height: 0.8rem;
 }
 </style>
