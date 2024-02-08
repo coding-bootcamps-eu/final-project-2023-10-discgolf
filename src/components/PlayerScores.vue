@@ -171,18 +171,15 @@ export default {
 
     // Methode zum Wechseln zum vorherigen Loch
     previousHole() {
-      if (this.currentHoleIndex > 0) {
-        this.currentHoleIndex--;
-        localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
-      }
+      this.currentHoleIndex =
+        (this.currentHoleIndex - 1 + this.holes.length) % this.holes.length;
+      localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
     },
 
     // Methode zum Wechseln zum nächsten Loch
     nextHole() {
-      if (this.currentHoleIndex < this.holes.length - 1) {
-        this.currentHoleIndex++;
-        localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
-      }
+      this.currentHoleIndex = (this.currentHoleIndex + 1) % this.holes.length;
+      localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
     },
 
     // Methode zum Erhöhen der Anzahl von Würfen für einen Spieler auf einem Loch
