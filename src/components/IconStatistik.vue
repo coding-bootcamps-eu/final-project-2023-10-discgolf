@@ -22,6 +22,6 @@ export default {
   position: absolute;
   top: 65px;
   margin: 0 auto;
-  left: 30%;
+  left: 22%;
 }
 </style>

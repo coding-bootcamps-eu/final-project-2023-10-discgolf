@@ -2,8 +2,8 @@
   <div class="balken"></div>
   <div class="main">
     <router-link class="router-link" to="/"
-      ><div><BackButton /></div
-    ></router-link>
+      ><div class="back-btn">Zur Kursauswahl</div></router-link
+    >
     <div>
       <WeatherView
         :city="city"
@@ -41,7 +41,7 @@ import IconSpieler from "@/components/IconSpieler.vue";
 import IconStatistik from "@/components/IconStatistik.vue";
 import WeatherView from "@/components/WeatherView.vue";
 import BalkenUnten from "@/components/BalkenUnten.vue";
-import BackButton from "@/components/BackButton.vue";
+// import BackButton from "@/components/BackButton.vue";
 
 export default {
   // name: "NavigationScreen",
@@ -54,7 +54,7 @@ export default {
     IconStatistik,
     WeatherView,
     BalkenUnten,
-    BackButton,
+    // BackButton,
   },
 
   data() {
@@ -95,13 +95,21 @@ h1 {
 .main {
   position: relative;
 }
-/* .back-btn {
+.back-btn {
   height: 56px;
-  width: 116px;
+  /* width: 116px; */
   background-color: var(--dunkelgruen);
   border-radius: 15px;
   margin: 25px 25px 15px 25px;
-} */
+  position: absolute;
+  top: 565px;
+  left: 30%;
+  margin: 0 auto;
+  color: #d5eae3;
+  font-size: 1rem;
+  padding: 17px 12px 10px 12px;
+  font-weight: 600;
+}
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -130,6 +138,6 @@ h1 {
 }
 .balken-unten {
   position: absolute;
-  top: 738px;
+  top: 673px;
 }
 </style>
