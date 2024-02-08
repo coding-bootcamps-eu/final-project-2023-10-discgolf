@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table>
+    <!-- <table>
       <thead>
         <tr>
           <th>Spieler</th>
@@ -22,7 +22,31 @@
         </td>
         <th>{{ summieren(index) }}</th>
       </tr>
-    </table>
+    </table> -->
+    <div class="hey">
+      <div class="bahn">
+        <h3>Bahn</h3>
+        <div
+          class="einzel-bahnen"
+          v-for="(loecher, index) in lochanzahl[selectedCourse]"
+          :key="loecher"
+        >
+          <p class="bold">{{ index + 1 }}</p>
+        </div>
+        <h4>Ges:</h4>
+      </div>
+      <div
+        class="bahn-element"
+        v-for="(user, index) in activeUsers"
+        :key="user.id"
+      >
+        <h3>{{ user.name }}</h3>
+        <p v-for="loecher in user[selectedCourse]" :key="loecher">
+          {{ loecher }}
+        </p>
+        <h4 class="gesamt">{{ summieren(index) }}</h4>
+      </div>
+    </div>
 
     <!-- <div v-for="(loecher, index) in lochanzahl[selectedCourse]" :key="loecher">
       <p>{{ index + 1 }}</p>
@@ -77,20 +101,62 @@ export default {
 };
 </script>
 <style scoped>
-table {
-  border: 3px solid red;
+.hey {
+  display: flex;
+  background-color: var(--dunkelgruen);
+  width: 90%;
   margin-inline: auto;
-  border-collapse: collapse;
+  border-radius: 15px;
+  color: var(--dunkelgruen);
+  justify-content: center;
 }
-td,
-th {
-  border: 1px solid black;
+.bahn {
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  margin-left: 10px;
 }
-thead {
-  background-color: yellow;
+.bahn div {
+  background-color: var(--hellgruen);
+  border-radius: 6px;
 }
-.loecher {
-  min-width: 18px;
-  max-width: 18px;
+.bahn-element p {
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
+  margin-left: 10px;
+  min-width: 50px;
+  background-color: var(--hellgruen);
+  border-radius: 6px;
+}
+.einzel-bahnen p {
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
+}
+.gesamt {
+  margin: 0;
+  margin-top: 23px;
+  background-color: var(--hellgruen);
+  margin-left: 10px;
+  border-radius: 6px;
+}
+
+.bahn h3 {
+  color: var(--hellgruen);
+}
+.bahn-element h3 {
+  color: var(--hellgruen);
+  justify-content: center;
+  min-width: 60px;
+  max-width: 60px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+.bahn h4 {
+  color: var(--hellgruen);
+}
+.bold {
+  font-weight: 700;
 }
 </style>
