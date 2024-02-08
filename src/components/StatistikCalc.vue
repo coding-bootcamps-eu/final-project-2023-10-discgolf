@@ -30,6 +30,7 @@
           class="einzel-bahnen"
           v-for="(loecher, index) in lochanzahl[selectedCourse]"
           :key="loecher"
+          @click="setCurrentHoleIndex(index)"
         >
           <p class="bold">{{ index + 1 }}</p>
         </div>
@@ -97,6 +98,10 @@ export default {
       }
       return summe;
     },
+    setCurrentHoleIndex(index) {
+      localStorage.setItem("currentHoleIndex", index.toString());
+      this.$router.push("/scores");
+    },
   },
 };
 </script>
@@ -158,5 +163,6 @@ export default {
 }
 .bold {
   font-weight: 700;
+  cursor: pointer;
 }
 </style>

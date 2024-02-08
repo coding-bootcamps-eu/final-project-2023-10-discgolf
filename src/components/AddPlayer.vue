@@ -270,7 +270,7 @@ export default {
           );
         }
       }
-
+      localStorage.removeItem("currentHoleIndex");
       // Nachdem alle Spieler aktualisiert wurden, zu /scores navigieren
       this.$router.push("/scores");
     },

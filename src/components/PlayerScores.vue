@@ -87,6 +87,10 @@ export default {
   async created() {
     // Ausgewählten Kurs aus dem lokalen Speicher abrufen
     this.selectedCourse = localStorage.getItem("selectedCourse");
+    const storedCurrentHoleIndex = localStorage.getItem("currentHoleIndex");
+    this.currentHoleIndex = storedCurrentHoleIndex
+      ? parseInt(storedCurrentHoleIndex)
+      : 0;
     await this.fetchPlayerData();
     this.updateVisibleButtons();
   },
@@ -161,12 +165,15 @@ export default {
     // Methode zum Festlegen des aktuellen Lochs
     setCurrentHole(index) {
       this.currentHoleIndex = index;
+      // Aktuellen currentHoleIndex im localStorage speichern
+      localStorage.setItem("currentHoleIndex", index);
     },
 
     // Methode zum Wechseln zum vorherigen Loch
     previousHole() {
       if (this.currentHoleIndex > 0) {
         this.currentHoleIndex--;
+        localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
       }
     },
 
@@ -174,6 +181,7 @@ export default {
     nextHole() {
       if (this.currentHoleIndex < this.holes.length - 1) {
         this.currentHoleIndex++;
+        localStorage.setItem("currentHoleIndex", this.currentHoleIndex);
       }
     },
 
