@@ -6,35 +6,51 @@
   </router-link>
   <div class="menu">
     <div class="rules">
-      <h2>Die Spielregeln</h2>
-      <p>
-        In Anlehnung an das Reglement des klassischen Golfspiels gilt es beim
-        Disc-Golf einen Parcours zu absolvieren, bei dem an jeder Bahn mit
-        möglichst wenigen Würfen (Par) der Zielkorb erreicht werden muss.
-        <br /><br />
-        Nach jedem Wurf wird von dort aus weitergespielt, wo die Scheibe lie-
-        gen geblieben ist. Der Spieler, der am weitesten vom Ziel entfernt ist,
-        macht den nächsten Wurf. <br /><br />Gewonnen hat, wer die geringste
-        Gesamt- wurfzahl auf dem Parcours vorweisen kann. Bäume, Äste und
-        Sträucher sind Teil des Kurses und dürfen nicht weg- gebogen oder
-        abgebrochen werden.
-      </p>
+      <RegelnStart v-if="activeComponent === 'RegelnStart'" />
+      <RegelnScheibe v-if="activeComponent === 'RegelnScheibe'" />
+      <RegelnTechnik v-if="activeComponent === 'RegelnTechnik'" />
     </div>
-    <div class="arrow-menu"><ArrowNavigation /></div>
+    <div class="arrow-menu">
+      <div class="arrow-left">
+        <img src="../assets/arrow-left.png" alt="left" />
+      </div>
+      <div class="round-link" @click="showComponent('RegelnStart')">1</div>
+      <div class="round-link" @click="showComponent('RegelnScheibe')">2</div>
+      <div class="round-link" @click="showComponent('RegelnTechnik')">3</div>
+      <div class="arrow-right">
+        <img src="../assets/arrow-right.png" alt="right" />
+      </div>
+    </div>
     <div class="balken-unten"><BalkenUnten /></div>
   </div>
 </template>
 
 <script>
-import ArrowNavigation from "@/components/ArrowNavigation.vue";
+// import ArrowNavigation from "@/components/ArrowNavigation.vue";
 import BalkenUnten from "@/components/BalkenUnten.vue";
 import BackButton from "@/components/BackButton.vue";
+import RegelnStart from "@/components/RegelnStart.vue";
+import RegelnScheibe from "@/components/RegelnScheibe.vue";
+import RegelnTechnik from "@/components/RegelnTechnik.vue";
 
 export default {
   components: {
-    ArrowNavigation,
+    // ArrowNavigation,
     BalkenUnten,
     BackButton,
+    RegelnStart,
+    RegelnScheibe,
+    RegelnTechnik,
+  },
+  data() {
+    return {
+      activeComponent: "RegelnStart",
+    };
+  },
+  methods: {
+    showComponent(componentName) {
+      this.activeComponent = componentName;
+    },
   },
 };
 </script>
@@ -48,15 +64,6 @@ h1 {
 }
 .rules {
   margin: 15px 25px;
-}
-.rules p {
-  text-align: left;
-  font-size: 1rem;
-}
-.rules h2 {
-  text-align: center;
-  font-weight: 900;
-  margin-top: 30px;
 }
 .menu {
   position: relative;
@@ -72,5 +79,25 @@ h1 {
 .balken-unten {
   position: absolute;
   top: 653px;
+}
+.round-link {
+  background-color: #d5eae3;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 15px 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding-top: 4px;
+}
+.arrow-left {
+  margin-top: 15px;
+  margin-right: 6px;
+  height: 25px;
+}
+.arrow-right {
+  margin-top: 15px;
+  margin-left: 6px;
+  height: 25px;
 }
 </style>
