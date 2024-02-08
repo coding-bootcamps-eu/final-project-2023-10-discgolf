@@ -444,6 +444,7 @@ h3 {
   grid-column-start: 2;
   position: absolute;
   left: 54.5%;
+  cursor: pointer;
 }
 .plus-minus-button-right {
   /* margin-left: 10px; */
@@ -451,5 +452,6 @@ h3 {
   margin-right: 25px;
   position: absolute;
   left: 59%;
+  cursor: pointer;
 }
 </style>

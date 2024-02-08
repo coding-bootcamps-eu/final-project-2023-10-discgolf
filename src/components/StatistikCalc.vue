@@ -41,9 +41,9 @@
         :key="user.id"
       >
         <h3>{{ user.name }}</h3>
-        <p v-for="loecher in user[selectedCourse]" :key="loecher">
-          {{ loecher }}
-        </p>
+        <div v-for="loecher in user[selectedCourse]" :key="loecher">
+          <p>{{ loecher }}</p>
+        </div>
         <h4 class="gesamt">{{ summieren(index) }}</h4>
       </div>
     </div>
@@ -109,12 +109,12 @@ export default {
   border-radius: 15px;
   color: var(--dunkelgruen);
   justify-content: center;
+  padding-inline: 5px;
 }
 .bahn {
   margin: 0;
   padding: 0;
   justify-content: center;
-  margin-left: 10px;
 }
 .bahn div {
   background-color: var(--hellgruen);
