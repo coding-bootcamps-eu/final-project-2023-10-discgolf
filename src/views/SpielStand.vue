@@ -1,7 +1,7 @@
 <template>
   <div class="balken"></div>
   <div class="about">
-    <router-link class="router-link" to="/nav"
+    <router-link class="router-link posi" to="/nav"
       ><div><BackButton /></div
     ></router-link>
     <PlayerScores />
@@ -30,5 +30,13 @@ export default {
   font-size: 1rem;
   padding-top: 17px;
   font-weight: 600;
+}
+.about {
+  position: relative;
+}
+.posi {
+  position: absolute;
+  z-index: 30;
+  right: 3px;
 }
 </style>
