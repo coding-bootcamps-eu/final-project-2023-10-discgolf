@@ -26,7 +26,8 @@
 
 <script>
 import L from "leaflet";
-import "/dist/css/leaflet.css";
+import "../../node_modules/leaflet/dist/leaflet.css";
+// import "/dist/css/leaflet.css";
 import abwurf from "@/assets/abwurf.png";
 import courseBeginn from "@/assets/coursebeginn.png";
 import basket from "@/assets/basket.png";
