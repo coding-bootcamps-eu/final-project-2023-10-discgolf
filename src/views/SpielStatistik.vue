@@ -1,35 +1,24 @@
 <template>
   <div class="balken"></div>
   <div class="about"></div>
-  <router-link class="router-link" to="/nav">
+  <router-link class="router-link" to="/scores">
     <div>
       <BackButton />
     </div>
   </router-link>
-  <div class="menu">
-    <div class="rules">
-      <h2>Die SpielStatistik</h2>
-    </div>
-    <div class="arrow-menu">
-      <ArrowNavigation />
-    </div>
-    <div class="balken-unten">
-      <BalkenUnten />
-    </div>
-  </div>
+  <div class="menu"></div>
   <StatistikCalc />
+  <router-link class="router-link" to="/">
+    <button class="back-btn">Runde abschließen</button>
+  </router-link>
 </template>
 
 <script>
-import ArrowNavigation from "@/components/ArrowNavigation.vue";
-import BalkenUnten from "@/components/BalkenUnten.vue";
 import BackButton from "@/components/BackButton.vue";
 import StatistikCalc from "@/components/StatistikCalc.vue";
 
 export default {
   components: {
-    ArrowNavigation,
-    BalkenUnten,
     BackButton,
     StatistikCalc,
   },
@@ -40,7 +29,18 @@ export default {
 .about {
   background-color: var(--hellgruen);
 }
-
+.back-btn {
+  height: 56px;
+  background-color: var(--dunkelgruen);
+  border-radius: 15px;
+  margin: 25px 25px 15px 25px;
+  color: #d5eae3;
+  font-size: 1rem;
+  padding-block: auto;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
 h1 {
   margin: 0px;
 }
