@@ -1,7 +1,7 @@
 <template>
   <div class="balken"></div>
   <div class="main">
-    <router-link class="router-link" to="/"
+    <router-link class="router-link" to="/course"
       ><div class="back-btn">Zur Kursauswahl</div></router-link
     >
     <div>
