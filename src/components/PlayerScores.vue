@@ -377,10 +377,13 @@ export default {
 
 <style scoped>
 .highlighted {
-  background-color: #3b7c7d; /* Sie können die Farbe entsprechend Ihrem Design ändern */
+  background-color: #3b7c7d;
 }
 .not-highlighted {
   background-color: #d5eae3;
+}
+.not-highlighted:hover {
+  background-color: #ffffff;
 }
 
 .round-link {
@@ -403,9 +406,10 @@ export default {
   height: 25px;
   cursor: pointer;
 }
+
 .arrow-left img:hover,
 .arrow-right img:hover {
-  filter: brightness(0.5);
+  filter: brightness(0) invert(1);
 }
 
 .arrow-menu {
