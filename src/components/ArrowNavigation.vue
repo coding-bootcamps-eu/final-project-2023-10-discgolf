@@ -2,9 +2,9 @@
   <div class="arrow-left">
     <img src="../assets/arrow-left.png" alt="left" />
   </div>
-  <div class="round-link">1</div>
-  <div class="round-link">2</div>
-  <div class="round-link">3</div>
+  <div class="round-link" @click="showComponent('RegelnStart')">1</div>
+  <div class="round-link" @click="showComponent('RegelnScheibe')">2</div>
+  <div class="round-link" @click="showComponent('RegelnTechnik')">3</div>
   <div class="arrow-right">
     <img src="../assets/arrow-right.png" alt="right" />
   </div>
