@@ -9,18 +9,26 @@
   <div class="menu"></div>
   <StatistikCalc />
   <router-link class="router-link" to="/">
-    <button class="back-btn">Runde abschließen</button>
+    <button @click="saveResultsToBackend()" class="back-btn">
+      Runde abschließen
+    </button>
   </router-link>
 </template>
 
 <script>
 import BackButton from "@/components/BackButton.vue";
 import StatistikCalc from "@/components/StatistikCalc.vue";
+import ResultHandler from "@/handlers/ResultHandler.js";
 
 export default {
   components: {
     BackButton,
     StatistikCalc,
+  },
+  methods: {
+    async saveResultsToBackend() {
+      await ResultHandler.generateRound();
+    },
   },
 };
 </script>
